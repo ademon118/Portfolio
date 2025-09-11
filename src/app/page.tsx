@@ -302,7 +302,7 @@ export default function Portfolio() {
           <h2 className="text-4xl font-bold text-center mb-16 text-gray-800">Get In Touch</h2>
           <div className="grid md:grid-cols-2 gap-12">
             <div>
-              <h3 className="text-2xl font-bold mb-6 text-gray-800">Let's Connect</h3>
+              <h3 className="text-2xl font-bold mb-6 text-gray-800">Let&apos;s Connect</h3>
               <p className="text-lg text-gray-600 mb-8">
                 I&apos;m always interested in new opportunities and exciting projects. 
                 Whether you have a question or just want to say hi, I&apos;ll try my best to get back to you!
