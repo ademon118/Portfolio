@@ -163,13 +163,13 @@ export default function Portfolio() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <p className="text-lg text-gray-600 leading-relaxed">
-                I'm a passionate mobile developer with over 4 years of experience creating 
+                I&apos;m a passionate mobile developer with over 4 years of experience creating 
                 innovative mobile applications. I specialize in cross-platform development 
                 using React Native and Flutter, with a strong foundation in native iOS and Android development.
               </p>
               <p className="text-lg text-gray-600 leading-relaxed">
                 My expertise spans from building scalable backend systems to crafting 
-                intuitive user interfaces. I'm always eager to learn new technologies and 
+                intuitive user interfaces. I&apos;m always eager to learn new technologies and 
                 take on challenging projects that push the boundaries of mobile development.
               </p>
               <div className="flex flex-wrap gap-3">
@@ -190,9 +190,9 @@ export default function Portfolio() {
             <div className="relative">
               <div className="bg-gradient-to-br from-blue-400 to-purple-500 rounded-2xl p-8 text-white text-center">
                 <div className="text-6xl mb-4">👨‍💻</div>
-                <h3 className="text-2xl font-bold mb-4">Let's Build Something Amazing</h3>
+                <h3 className="text-2xl font-bold mb-4">Let&apos;s Build Something Amazing</h3>
                 <p className="text-blue-100">
-                  I'm always excited to work on new projects and collaborate with talented teams.
+                  I&apos;m always excited to work on new projects and collaborate with talented teams.
                 </p>
               </div>
             </div>
@@ -304,8 +304,8 @@ export default function Portfolio() {
             <div>
               <h3 className="text-2xl font-bold mb-6 text-gray-800">Let's Connect</h3>
               <p className="text-lg text-gray-600 mb-8">
-                I'm always interested in new opportunities and exciting projects. 
-                Whether you have a question or just want to say hi, I'll try my best to get back to you!
+                I&apos;m always interested in new opportunities and exciting projects. 
+                Whether you have a question or just want to say hi, I&apos;ll try my best to get back to you!
               </p>
               <div className="space-y-4">
                 <div className="flex items-center space-x-4">
