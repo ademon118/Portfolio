@@ -2,21 +2,21 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 export type LogoItem =
   | {
-      node: React.ReactNode;
-      href?: string;
-      title?: string;
-      ariaLabel?: string;
-    }
+    node: React.ReactNode;
+    href?: string;
+    title?: string;
+    ariaLabel?: string;
+  }
   | {
-      src: string;
-      alt?: string;
-      href?: string;
-      title?: string;
-      srcSet?: string;
-      sizes?: string;
-      width?: number;
-      height?: number;
-    };
+    src: string;
+    alt?: string;
+    href?: string;
+    title?: string;
+    srcSet?: string;
+    sizes?: string;
+    width?: number;
+    height?: number;
+  };
 
 export interface LogoLoopProps {
   logos: LogoItem[];
@@ -270,10 +270,10 @@ export const LogoLoop = React.memo<LogoLoopProps>(
         const content = isNodeItem ? (
           <span
             className={cx(
-              'inline-flex items-center',
+              'inline-flex items-center justify-center',
               'motion-reduce:transition-none',
               scaleOnHover &&
-                'transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-120'
+              'transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-110'
             )}
             aria-hidden={!!(item as any).href && !(item as any).ariaLabel}
           >
@@ -287,7 +287,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
               '[image-rendering:-webkit-optimize-contrast]',
               'motion-reduce:transition-none',
               scaleOnHover &&
-                'transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-120'
+              'transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-110'
             )}
             src={(item as any).src}
             srcSet={(item as any).srcSet}
@@ -309,9 +309,9 @@ export const LogoLoop = React.memo<LogoLoopProps>(
         const inner = (item as any).href ? (
           <a
             className={cx(
-              'inline-flex items-center no-underline rounded',
-              'transition-opacity duration-200 ease-linear',
-              'hover:opacity-80',
+              'inline-flex items-center justify-center no-underline rounded-lg border border-gray-600 p-3',
+              'bg-white/5 backdrop-blur-sm',
+              'hover:border-white/40 hover:scale-105 transition-all duration-300 ease-out',
               'focus-visible:outline focus-visible:outline-current focus-visible:outline-offset-2'
             )}
             href={(item as any).href}
@@ -322,7 +322,15 @@ export const LogoLoop = React.memo<LogoLoopProps>(
             {content}
           </a>
         ) : (
-          content
+          <div
+            className={cx(
+              'inline-flex items-center justify-center rounded-lg border border-gray-600 p-3',
+              'bg-white/5 backdrop-blur-sm',
+              'hover:border-white/40 hover:scale-105 transition-all duration-300 ease-out'
+            )}
+          >
+            {content}
+          </div>
         );
 
         return (
@@ -340,6 +348,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
       },
       [scaleOnHover]
     );
+
 
     const logoLists = useMemo(
       () =>

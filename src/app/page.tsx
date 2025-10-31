@@ -1,7 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import LogoLoop from '@/components/LogoLoop';
+import { MapPinnedIcon, MapPinnedIconHandle } from '@/components/ui/MapPinnedIcon';
 import {
   SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiFlutter,
   SiFigma,
@@ -12,6 +14,9 @@ import {
 import { FaJava } from 'react-icons/fa';
 import TextType from '@/components/TextType';
 import SplitText from '@/components/SplitText';
+import { WiDayThunderstorm } from 'react-icons/wi';
+import AnimatedBackground from '@/components/AnimatedBackground';
+
 
 
 export default function Portfolio() {
@@ -20,11 +25,54 @@ export default function Portfolio() {
   const [showPopup, setShowPopup] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   });
+  const iconRef = useRef<MapPinnedIconHandle>(null);
+
+  const stats = [
+    { label: 'Year of Experience', value: 1, suffix: '' },
+    { label: 'Project Completed', value: 10, suffix: '+' },
+    { label: 'Awards & Recognitions', value: 2, suffix: '+' },
+    { label: 'Hours of coding', value: 10000, suffix: '+' },
+  ];
+
+  const [counts, setCounts] = useState(stats.map(() => 0));
+  const [visible, setVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.4 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // Count animation
+  useEffect(() => {
+    if (!visible) return;
+    const duration = 1500;
+    const start = performance.now();
+
+    const animate = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      setCounts(stats.map((s) => Math.floor(s.value * progress)));
+      if (progress < 1) requestAnimationFrame(animate);
+    };
+
+    requestAnimationFrame(animate);
+  }, [visible]);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,9 +106,8 @@ export default function Portfolio() {
     };
   }, []);
 
-  const handleAnimationComplete = () => {
-    console.log('All letters have animated!');
-  };
+
+
 
   const techLogos = [
     { node: <SiReact color="#61DAFB" />, title: "React", href: "https://react.dev" },
@@ -128,17 +175,30 @@ export default function Portfolio() {
 
   const education = [
     {
-      degree: "Bachelor of Computer Science",
-      school: "University of Technology",
-      year: "2015 - 2019",
+      degree: "Pharmacy Studies",
+      school: "University of Pharmacy,MDY",
+      year: "2019 - 2020",
       description: "Specialized in Software Engineering and Mobile Development"
     },
     {
-      degree: "Mobile App Development Certification",
-      school: "Tech Academy",
-      year: "2020",
+      degree: "NCC level 4 Diploma in computing",
+      school: "KMD College",
+      year: "2022-2023",
       description: "Advanced certification in React Native and Flutter development"
+    },
+    {
+      degree: "NCC level 5 Diploma in computing",
+      school: "KMD College",
+      year: "2023 - 2024",
+      description: "Specialized in Software Engineering and Mobile Development"
+    },
+    {
+      degree: "Java Basic Certification",
+      school: "KMD College",
+      year: "2023-2024",
+      description: "Advanced certification in Java and OOP langauge"
     }
+
   ];
 
   const skills = [
@@ -179,7 +239,10 @@ export default function Portfolio() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-[#0f0b21] text-white relative">
+      {/* Animated Background */}
+      <AnimatedBackground />
+
       {/* Custom Cursor */}
       <div
         className={`custom-cursor ${isHovering ? 'opacity-100' : 'opacity-0'
@@ -228,7 +291,7 @@ export default function Portfolio() {
       </header>
 
       {/* Hero Section */}
-      <section id="home" className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden">
+      <section id="home" className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden z-10">
         {/* Background Effects */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/5 to-purple-900/5"></div>
         <div className="absolute top-20 left-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -239,7 +302,7 @@ export default function Portfolio() {
             <h1 className="text-6xl md:text-8xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-6">
               AUNG KO KO NAING
             </h1>
-            <p className="text-lg text-gray-400 mb-12 animate-fade-in-up-delay-2">
+            <p className="text-lg text-gray-400 mb-6 animate-fade-in-up-delay-2">
               Mobile Developer • iOS | Android | Hybrid
             </p>
             <TextType
@@ -269,54 +332,76 @@ export default function Portfolio() {
       </section>
 
       {/* About Me Section */}
-      <section id="about" className="py-20 px-6 bg-gray-900 relative overflow-hidden">
+      <section id="about" className="relative overflow-hidden z-10">
         {/* Background Effects */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 to-purple-900/10"></div>
-        <div className="absolute top-10 right-10 w-24 h-24 bg-blue-500/5 rounded-full blur-2xl animate-pulse"></div>
-        <div className="absolute bottom-10 left-10 w-32 h-32 bg-purple-500/5 rounded-full blur-2xl animate-pulse"></div>
 
         <div className="max-w-6xl mx-auto relative z-10">
-          <h2 className="text-5xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-            About Me
-          </h2>
-          <div className="grid md:grid-cols-2 gap-16 items-center">
+          <div className="flex items-center gap-50 ">
             <div className="space-y-8">
               <div className="space-y-6">
-                <p className="text-xl text-gray-300 leading-relaxed">
-                  I&apos;m a passionate mobile developer with over 4 years of experience creating
+                <h2 className="text-5xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                  About Me
+                </h2>
+                <p className="text-lg text-gray-300 leading-relaxed">
+                  I&apos;m a passionate mobile developer with over 1 years of experience creating
                   innovative mobile applications. I specialize in cross-platform development
-                  using React Native and Flutter, with a strong foundation in native iOS and Android development.
+                  using Ionic and Flutter.
                 </p>
-                <p className="text-xl text-gray-300 leading-relaxed">
-                  My expertise spans from building scalable backend systems to crafting
-                  intuitive user interfaces. I&apos;m always eager to learn new technologies and
-                  take on challenging projects that push the boundaries of mobile development.
-                </p>
-              </div>
+                <div ref={sectionRef} className="flex flex-col gap-4 text-white">
+                  <div className="flex flex-row gap-32">
+                    <div className="flex flex-col w-48">
+                      <span className="text-sm text-gray-300 tracking-wide">Year of Experience</span>
+                      <p className="text-3xl font-bold text-white mt-1">{counts[0]}{stats[0].suffix}</p>
+                    </div>
+                    <div className="flex flex-col w-48">
+                      <span className="text-sm text-gray-300 tracking-wide">Project Completed</span>
+                      <p className="text-3xl font-bold text-white mt-1">{counts[1]}{stats[1].suffix}</p>
+                    </div>
+                  </div>
 
-              {/* Skills Grid */}
-
-            </div>
-
-            <div className="relative">
-              <div className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-sm border border-white/10 rounded-3xl p-12 text-center hover:bg-gradient-to-br hover:from-blue-500/30 hover:to-purple-500/30 transition-all duration-300">
-                <div className="text-8xl mb-6">👨‍💻</div>
-                <h3 className="text-3xl font-bold mb-6 text-white">Let&apos;s Build Something Amazing</h3>
-                <p className="text-gray-300 text-lg leading-relaxed">
-                  I&apos;m always excited to work on new projects and collaborate with talented teams.
-                </p>
-                <div className="mt-8 flex justify-center">
-                  <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center border border-blue-400/30">
-                    <div className="w-8 h-8 bg-blue-400 rounded-full animate-pulse"></div>
+                  <div className="flex flex-row gap-32">
+                    <div className="flex flex-col w-48">
+                      <span className="text-sm text-gray-300 tracking-wide">Awards & Recognitions</span>
+                      <p className="text-3xl font-bold text-white mt-1">{counts[2]}{stats[2].suffix}</p>
+                    </div>
+                    <div className="flex flex-col w-48">
+                      <span className="text-sm text-gray-300 tracking-wide">Hours of coding</span>
+                      <p className="text-3xl font-bold text-white mt-1">{counts[3].toLocaleString()}{stats[3].suffix}</p>
+                    </div>
                   </div>
                 </div>
+
+
+                <button
+                  onClick={() => {
+                    const { latitude, longitude } = { latitude: 16.785571, longitude: 96.126859 };
+                    window.open(`https://www.google.com/maps?q=${latitude},${longitude}`, '_blank');
+
+                  }}
+                  onMouseEnter={() => iconRef.current?.startAnimation()}
+                  onMouseLeave={() => iconRef.current?.stopAnimation()}
+                  className="group relative px-8 py-3 rounded-full mt-4 overflow-hidden transition-all duration-300 flex items-center gap-2 font-medium shadow-lg"
+                  style={{
+                    background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
+                  }}
+                >
+                  <span className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                  <span className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                  <MapPinnedIcon ref={iconRef} size={20} duration={1} className="relative z-10" />
+                  <span className="relative z-10 text-white">Yangon, Myanmar</span>
+                </button>
+
               </div>
+            </div>
+
+            <div className="relative rounded-[16px] border border-gray-600 p-4 w-250 h-100">
+              <img src="profile.png" alt="Profile" />
             </div>
           </div>
         </div>
       </section>
 
-      <div style={{ height: '200px', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '40px', marginRight: '40px' }}>
+      <div className="relative z-10" style={{ height: '200px', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '40px', marginRight: '40px' }}>
         <LogoLoop
           logos={techLogos}
           speed={120}
@@ -326,7 +411,7 @@ export default function Portfolio() {
           pauseOnHover
           scaleOnHover
           fadeOut
-          fadeOutColor="#000000"
+          fadeOutColor="transparent"
           ariaLabel="Technology partners"
         />
       </div>
@@ -338,25 +423,22 @@ export default function Portfolio() {
 
 
       {/* Education Section */}
-      <section id="education" className="py-20 px-6 bg-black relative overflow-hidden">
+      <section id="education" className="py-20 px-6 relative overflow-hidden z-10">
         {/* Background Effects */}
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/5 to-blue-900/5"></div>
         <div className="absolute top-20 left-20 w-32 h-32 bg-purple-500/5 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-20 right-20 w-40 h-40 bg-blue-500/5 rounded-full blur-3xl animate-pulse"></div>
 
         <div className="max-w-6xl mx-auto relative z-10">
-          <h2 className="text-5xl font-bold text-center mb-16 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+          <h2 className="text-5xl font-bold text-center mb-8 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
             Education
           </h2>
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="flex flex-row gap-8">
             {education.map((edu, index) => (
-              <div key={index} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 hover:bg-white/10 hover:border-white/20 transition-all duration-300 group">
+              <div key={index} className="w-500 bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 hover:bg-white/10 hover:border-white/20 transition-all duration-300 group">
                 <div className="flex items-center mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-2xl flex items-center justify-center mr-4 border border-blue-400/30">
-                    <span className="text-2xl">🎓</span>
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold text-white">{edu.degree}</h3>
+                  <div className='flex flex-col'>
+                    <h3 className="text-xl font-bold text-white">{edu.degree}</h3>
                     <p className="text-lg text-blue-400 font-semibold">{edu.school}</p>
                   </div>
                 </div>
@@ -371,7 +453,7 @@ export default function Portfolio() {
       </section>
 
       {/* Contact Section - Framer Style */}
-      <section id="contact" className="min-h-screen bg-black text-white relative overflow-hidden flex items-center justify-center">
+      <section id="contact" className="min-h-screen text-white relative overflow-hidden flex items-center justify-center z-10">
         {/* Background Effects */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/5 to-purple-900/5"></div>
 
@@ -441,18 +523,18 @@ export default function Portfolio() {
           </p>
 
           {/* Call-to-Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up-delay-3">
             <button
               onClick={() => scrollToSection('case-studies')}
-              className="bg-white text-black px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/25"
             >
-              View My Work
+              Contact Me
             </button>
             <button
-              onClick={() => setShowPopup(true)}
-              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-105"
+              onClick={() => scrollToSection('contact')}
+              className="border-2 border-blue-400 text-blue-400 px-8 py-3 rounded-full hover:bg-blue-400 hover:text-black transition-all duration-300 transform hover:scale-105"
             >
-              Start with AI
+              View My Work
             </button>
           </div>
 
@@ -462,64 +544,60 @@ export default function Portfolio() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 px-6 relative overflow-hidden">
+      <footer className="text-white py-12 px-6 relative overflow-hidden z-10">
         {/* Background Effects */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/5 to-purple-900/5"></div>
-        <div className="absolute top-0 left-0 w-32 h-32 bg-blue-500/5 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-0 w-40 h-40 bg-purple-500/5 rounded-full blur-3xl animate-pulse"></div>
 
         <div className="max-w-6xl mx-auto relative z-10">
-          <div className="grid md:grid-cols-3 gap-8">
-            <div>
-              <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">AUNG KO KO NAING</h3>
-              <p className="text-gray-400 mb-4">
-                Mobile Developer passionate about creating exceptional user experiences
-                through innovative mobile applications.
-              </p>
-              <div className="flex space-x-4">
-                <a href="https://github.com/ademon118" className="text-gray-400 hover:text-blue-400 transition-colors">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                  </svg>
-                </a>
-                <a href="https://linkedin.com/in/aung-ko-ko-naing-603111358" className="text-gray-400 hover:text-blue-400 transition-colors">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                  </svg>
-                </a>
-                <a href="mailto:aungkokonaing118@gmail.com" className="text-gray-400 hover:text-blue-400 transition-colors">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                  </svg>
-                </a>
-              </div>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className='flex items-center space-x-3'>
+              <img className="w-10 h-10 object-contain bg-transparent rounded-xl shadow-lg border border-gray-600 p-1.5" src="logo.png" alt="logo" />
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">AUNG KO KO NAING</h3>
             </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4 text-blue-400">Quick Links</h4>
-              <ul className="space-y-2">
-                {['About', 'Case Studies', 'Experience', 'Education', 'Contact'].map((link) => (
-                  <li key={link}>
-                    <button
-                      onClick={() => scrollToSection(link.toLowerCase().replace(' ', '-'))}
-                      className="text-gray-400 hover:text-blue-400 transition-colors"
-                    >
-                      {link}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4 text-blue-400">Contact Info</h4>
-              <div className="space-y-2 text-gray-400">
-                <p>📧 aungkokonaing118@gmail.com</p>
-                <p>🌍 Available for remote work</p>
-                <p>💼 Open to new opportunities</p>
-              </div>
+            <div className="flex items-center space-x-3">
+              <a href="https://github.com/ademon118" aria-label="GitHub" className="w-8 h-8 flex items-center justify-center rounded-lg border border-blue-400/30 bg-white/5 hover:bg-blue-400/10 hover:text-blue-400 text-gray-300 transition-all duration-300">
+                <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+                  <path d="M9 18c-4.51 2-5-2-7-2"></path>
+                </svg>
+              </a>
+              <a href="https://linkedin.com/in/aung-ko-ko-naing-603111358" aria-label="LinkedIn" className="w-8 h-8 flex items-center justify-center rounded-lg border border-blue-400/30 bg-white/5 hover:bg-blue-400/10 hover:text-blue-400 text-gray-300 transition-all duration-300">
+                <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                  <rect width="4" height="12" x="2" y="9"></rect>
+                  <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+              </a>
+              <a href="https://t.me/ademon308" aria-label="Twitter" className="w-8 h-8 flex items-center justify-center rounded-lg border border-blue-400/30 bg-white/5 hover:bg-blue-400/10 hover:text-blue-400 text-gray-300 transition-all duration-300">
+                <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M22 2L11 13"></path>
+                  <path d="M22 2l-7 20-4-9-9-4 20-7z"></path>
+                </svg>
+              </a>
+              <a href="mailto:aungkokonaing118@gmail.com" aria-label="Email" className="w-8 h-8 flex items-center justify-center rounded-lg border border-blue-400/30 bg-white/5 hover:bg-blue-400/10 hover:text-blue-400 text-gray-300 transition-all duration-300">
+                <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+              </a>
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 AUNG KO KO NAING. All rights reserved.</p>
+
+          <div className="border-t border-gray-800 mt-4 pt-4 text-center space-y-2">
+            <p className="text-gray-400 flex items-center justify-center gap-2">
+              Made with
+              <button
+                onClick={() => setIsLiked(!isLiked)}
+                className="relative transform transition-all duration-300 hover:scale-125 active:scale-110"
+              >
+                <span
+                  className={`transition-all duration-300 ${isLiked ? 'animate-pulse' : ''} ${isLiked ? 'text-red-500' : 'text-gray-400'}`}
+                >
+                  {isLiked ? '❤️' : '🤍'}
+                </span>
+              </button>
+              by Aung Ko Ko Naing
+            </p>
+            <p className="text-gray-500 text-sm">Licensed under BlueStone</p>
           </div>
         </div>
       </footer>
