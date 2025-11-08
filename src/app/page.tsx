@@ -42,7 +42,10 @@ export default function Portfolio() {
 
   const [counts, setCounts] = useState(stats.map(() => 0));
   const [visible, setVisible] = useState(false);
+  const [rotation, setRotation] = useState(0);
   const sectionRef = useRef<HTMLDivElement | null>(null);
+  const [educationVisible, setEducationVisible] = useState(false);
+  const educationSectionRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -55,6 +58,20 @@ export default function Portfolio() {
       { threshold: 0.4 }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setEducationVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    if (educationSectionRef.current) observer.observe(educationSectionRef.current);
     return () => observer.disconnect();
   }, []);
 
@@ -77,6 +94,14 @@ export default function Portfolio() {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+      
+      // Calculate rotation based on scroll position
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollFraction = docHeight > 0 ? scrollTop / docHeight : 0;
+      // Rotate 360 degrees as user scrolls to bottom
+      const maxRotation = 360;
+      setRotation(scrollFraction * maxRotation);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -178,19 +203,19 @@ export default function Portfolio() {
       degree: "Pharmacy Studies",
       school: "University of Pharmacy,MDY",
       year: "2019 - 2020",
-      description: "Specialized in Software Engineering and Mobile Development"
+      description: "Specialized in pharmaceutical sciences"
     },
     {
       degree: "NCC level 4 Diploma in computing",
       school: "KMD College",
       year: "2022-2023",
-      description: "Advanced certification in React Native and Flutter development"
+      description: "Foundation for higher study or entry-level IT jobs"
     },
     {
       degree: "NCC level 5 Diploma in computing",
       school: "KMD College",
       year: "2023 - 2024",
-      description: "Specialized in Software Engineering and Mobile Development"
+      description: "Pathway to university top-up degree or skilled IT role"
     },
     {
       degree: "Java Basic Certification",
@@ -297,7 +322,7 @@ export default function Portfolio() {
         <div className="absolute top-20 left-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-20 right-10 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
 
-        <div className="text-center max-w-4xl mx-auto relative z-10">
+        <div className="text-center max-w-4xl mx-auto relative z-10 mt-6">
           <div className="animate-fade-in-up">
             <h1 className="text-6xl md:text-8xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-6">
               AUNG KO KO NAING
@@ -326,6 +351,19 @@ export default function Portfolio() {
               >
                 Get In Touch
               </button>
+            </div>
+            <div
+              className="relative mx-auto w-[400px] will-change-transform md:w-[380px] transition-transform duration-100 ease-out mt-12"
+              style={{
+                transform: `rotate(${rotation}deg)`,
+              }}
+            >
+              <img
+                alt="decorative circle rotating"
+                className="z-10 w-full select-none rounded-full opacity-85"
+                draggable="false"
+                src="/decorative-circle.svg"
+              />
             </div>
           </div>
         </div>
@@ -406,7 +444,7 @@ export default function Portfolio() {
           logos={techLogos}
           speed={120}
           direction="left"
-          logoHeight={48}
+          logoHeight={40}
           gap={40}
           pauseOnHover
           scaleOnHover
@@ -423,29 +461,75 @@ export default function Portfolio() {
 
 
       {/* Education Section */}
-      <section id="education" className="py-20 px-6 relative overflow-hidden z-10">
+      <section id="education" className="py-20 px-6 relative overflow-hidden z-10" ref={educationSectionRef}>
         {/* Background Effects */}
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/5 to-blue-900/5"></div>
-        <div className="absolute top-20 left-20 w-32 h-32 bg-purple-500/5 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-40 h-40 bg-blue-500/5 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-20 left-20 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
 
-        <div className="max-w-6xl mx-auto relative z-10">
-          <h2 className="text-5xl font-bold text-center mb-8 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+        <div className="max-w-7xl mx-auto relative z-10">
+          <h2 
+            className={`text-5xl md:text-6xl font-bold text-center mb-16 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent transition-all duration-1000 ${
+              educationVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
             Education
           </h2>
-          <div className="flex flex-row gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {education.map((edu, index) => (
-              <div key={index} className="w-500 bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 hover:bg-white/10 hover:border-white/20 transition-all duration-300 group">
-                <div className="flex items-center mb-6">
-                  <div className='flex flex-col'>
-                    <h3 className="text-xl font-bold text-white">{edu.degree}</h3>
-                    <p className="text-lg text-blue-400 font-semibold">{edu.school}</p>
+              <div
+                key={index}
+                className={`group relative bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500 hover:scale-105 hover:border-purple-400/50 hover:shadow-2xl hover:shadow-purple-500/20 ${
+                  educationVisible 
+                    ? 'opacity-100 translate-y-0' 
+                    : 'opacity-0 translate-y-12'
+                }`}
+                style={{
+                  transitionDelay: educationVisible ? `${index * 100}ms` : '0ms'
+                }}
+              >
+                {/* Gradient Border Effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-blue-500/0 to-purple-500/0 group-hover:from-purple-500/20 group-hover:via-blue-500/20 group-hover:to-purple-500/20 transition-all duration-500 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl"></div>
+                
+                {/* Animated Background Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 to-blue-500/0 group-hover:from-purple-500/10 group-hover:to-blue-500/10 transition-all duration-500 rounded-2xl"></div>
+                
+                {/* Content */}
+                <div className="relative z-10">
+                  {/* Icon/Emoji Badge */}
+                  <div className="w-14 h-14 mb-4 rounded-xl bg-gradient-to-br from-purple-500/20 to-blue-500/20 border border-purple-400/30 flex items-center justify-center text-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    🎓
                   </div>
+                  
+                  {/* Degree Title */}
+                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-blue-400 transition-all duration-300">
+                    {edu.degree}
+                  </h3>
+                  
+                  {/* School Name */}
+                  <p className="text-base text-blue-400 font-semibold mb-4 group-hover:text-blue-300 transition-colors duration-300">
+                    {edu.school}
+                  </p>
+                  
+                  {/* Year Badge */}
+                  <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-400/20 group-hover:border-purple-400/40 group-hover:from-purple-500/20 group-hover:to-blue-500/20 transition-all duration-300">
+                    <svg className="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span className="text-sm text-gray-300 font-medium">{edu.year}</span>
+                  </div>
+                  
+                  {/* Description */}
+                  <p className="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+                    {edu.description}
+                  </p>
+                  
+                  {/* Decorative Line */}
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-purple-500/50 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
                 </div>
-                <p className="text-gray-400 mb-4 text-lg bg-white/5 px-4 py-2 rounded-xl border border-white/10 inline-block">
-                  {edu.year}
-                </p>
-                <p className="text-gray-300 text-lg leading-relaxed">{edu.description}</p>
+                
+                {/* Shine Effect on Hover */}
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
               </div>
             ))}
           </div>
