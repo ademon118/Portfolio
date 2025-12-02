@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import Link from 'next/link';
 import LogoLoop from '@/components/LogoLoop';
 import { MapPinnedIcon, MapPinnedIconHandle } from '@/components/ui/MapPinnedIcon';
 import {
@@ -13,10 +13,8 @@ import {
 } from 'react-icons/si';
 import { FaJava } from 'react-icons/fa';
 import TextType from '@/components/TextType';
-import SplitText from '@/components/SplitText';
-import { WiDayThunderstorm } from 'react-icons/wi';
 import AnimatedBackground from '@/components/AnimatedBackground';
-
+import { projects } from '@/lib/projects';
 
 
 export default function Portfolio() {
@@ -145,57 +143,6 @@ export default function Portfolio() {
     { node: <SiIonic color="#3880FF" />, title: "Ionic", href: "https://ionicframework.com" },
     { node: <SiPhp color="#777BB4" />, title: "PHP", href: "https://www.php.net" },
     { node: <FaJava color="#007396" />, title: "Java", href: "https://www.java.com" },
-  ];
-
-  const caseStudies = [
-    {
-      title: "E-Commerce Mobile App",
-      description: "Built a comprehensive e-commerce platform with real-time inventory management, payment integration, and push notifications.",
-      tech: ["React Native", "Node.js", "MongoDB", "Stripe API"],
-      image: "🛒",
-      link: "https://github.com/yourusername/ecommerce-app",
-      features: ["Real-time sync", "Payment gateway", "Push notifications", "Offline support"]
-    },
-    {
-      title: "Healthcare Management System",
-      description: "Developed a HIPAA-compliant healthcare app for patient management, appointment scheduling, and telemedicine features.",
-      tech: ["Flutter", "Firebase", "WebRTC", "PostgreSQL"],
-      image: "🏥",
-      link: "https://github.com/yourusername/healthcare-app",
-      features: ["HIPAA compliance", "Video calls", "Secure messaging", "Appointment booking"]
-    },
-    {
-      title: "FinTech Wallet Application",
-      description: "Created a secure cryptocurrency wallet with multi-signature support, DeFi integration, and advanced security features.",
-      tech: ["React Native", "Blockchain", "Web3", "Biometric Auth"],
-      image: "💰",
-      link: "https://github.com/yourusername/crypto-wallet",
-      features: ["Multi-sig wallet", "DeFi integration", "Biometric security", "Real-time prices"]
-    }
-  ];
-
-  const experience = [
-    {
-      company: "TechCorp Solutions",
-      position: "Senior Mobile Developer",
-      duration: "2022 - Present",
-      description: "Leading mobile development team, architecting scalable solutions for enterprise clients.",
-      achievements: ["Led team of 5 developers", "Reduced app crash rate by 40%", "Implemented CI/CD pipeline"]
-    },
-    {
-      company: "StartupXYZ",
-      position: "Full-Stack Developer",
-      duration: "2020 - 2022",
-      description: "Developed end-to-end mobile and web applications using modern technologies.",
-      achievements: ["Built 3 successful apps", "Increased user retention by 60%", "Optimized performance by 50%"]
-    },
-    {
-      company: "Digital Agency",
-      position: "Junior Developer",
-      duration: "2019 - 2020",
-      description: "Started career building responsive web applications and learning mobile development.",
-      achievements: ["Completed 20+ projects", "Learned React Native", "Gained client management skills"]
-    }
   ];
 
   const education = [
@@ -453,11 +400,130 @@ export default function Portfolio() {
           ariaLabel="Technology partners"
         />
       </div>
+      {/* Projects / Case Studies Section */}
+      <section
+        id="case-studies"
+        className="py-24 px-6 relative overflow-hidden z-10"
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/5 via-purple-900/5 to-black/40" />
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+            <div>
+              <p className="text-sm uppercase tracking-[0.3em] text-blue-300/70 mb-3">
+                Selected work
+              </p>
+              <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Projects that I&apos;ve built
+              </h2>
+              <p className="mt-4 text-gray-300 max-w-2xl">
+                A mix of client work and personal projects that show how I design, build,
+                and ship mobile experiences from idea to production.
+              </p>
+            </div>
+            <div className="flex gap-3 flex-wrap">
+              <span className="px-3 py-1 rounded-full border border-blue-400/30 text-xs text-blue-200/90 bg-blue-500/10">
+                Mobile first
+              </span>
+              <span className="px-3 py-1 rounded-full border border-purple-400/30 text-xs text-purple-200/90 bg-purple-500/10">
+                Real-world apps
+              </span>
+            </div>
+          </div>
 
-      {/* Case Studies Section */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+            {projects.slice(0, 6).map((project) => (
+              <article
+                key={project.slug}
+                className="group relative h-full bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 rounded-3xl p-6 flex flex-col overflow-hidden hover:border-blue-400/60 hover:shadow-[0_0_40px_rgba(59,130,246,0.35)] transition-all duration-300"
+              >
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/15 via-purple-500/10 to-transparent blur-3xl" />
+                </div>
 
+                <div className="relative z-10 flex items-center justify-between gap-3 mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-blue-500/30 to-purple-500/30 border border-white/20 flex items-center justify-center text-2xl shadow-lg shadow-blue-500/30">
+                      <span aria-hidden>{project.emoji}</span>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-white group-hover:text-blue-200 transition-colors">
+                        {project.title}
+                      </h3>
+                      <p className="text-xs text-blue-200/80 uppercase tracking-[0.2em]">
+                        {project.timeline} • {project.role}
+                      </p>
+                    </div>
+                  </div>
+                </div>
 
-      {/* Career & Experience Section */}
+                <p className="relative z-10 text-sm text-gray-300 mb-4 line-clamp-3">
+                  {project.tagline}
+                </p>
+
+                <div className="relative z-10 flex flex-wrap gap-2 mb-5">
+                  {project.tech.slice(0, 4).map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-200/90"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="relative z-10 mt-auto flex items-center justify-between gap-3 pt-4 border-t border-white/10">
+                  <div className="flex gap-2">
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-blue-400/50 bg-blue-500/10 px-3 py-1.5 text-xs text-blue-200 hover:bg-blue-500/20 hover:border-blue-300 transition-colors"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                        <span>View code</span>
+                      </a>
+                    )}
+                    {project.liveUrl && project.liveUrl.trim().length > 0 && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-purple-400/50 bg-purple-500/10 px-3 py-1.5 text-xs text-purple-200 hover:bg-purple-500/20 hover:border-purple-300 transition-colors"
+                      >
+                        <span>Live demo</span>
+                      </a>
+                    )}
+                  </div>
+
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="inline-flex items-center gap-1.5 text-xs text-gray-200 group-hover:text-white transition-colors"
+                  >
+                    <span>View details</span>
+                    <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10 border border-white/20 group-hover:bg-blue-500 group-hover:border-blue-300 transition-all">
+                      <svg
+                        className="w-2.5 h-2.5"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M5 11L11 5M7 5H11V9"
+                          stroke="currentColor"
+                          strokeWidth="1.6"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </span>
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
 
       {/* Education Section */}
