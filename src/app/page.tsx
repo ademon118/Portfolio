@@ -93,7 +93,7 @@ export default function Portfolio() {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-      
+
       // Calculate rotation based on scroll position
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -212,7 +212,7 @@ export default function Portfolio() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0f0b21] text-white relative overflow-x-hidden">
+    <div className="min-h-screen bg-black text-white relative overflow-x-hidden">
       {/* Animated Background */}
       <AnimatedBackground />
 
@@ -239,11 +239,11 @@ export default function Portfolio() {
         <div className="absolute inset-0 w-2 h-2 bg-blue-400 rounded-full animate-ping opacity-60"></div>
       </div>
       {/* Modern Header */}
-      <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-black/90 backdrop-blur-md shadow-lg border-b border-blue-500/20' : 'bg-transparent'
+      <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-black/90 backdrop-blur-md shadow-lg border-b border-white/10' : 'bg-transparent'
         }`}>
         <nav className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="text-sm sm:text-lg md:text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent truncate max-w-[60vw] sm:max-w-none">
+            <div className="text-sm sm:text-lg md:text-2xl font-bold text-white truncate max-w-[60vw] sm:max-w-none">
               AUNG KO KO NAING
             </div>
             <div className="hidden md:flex space-x-8">
@@ -251,7 +251,7 @@ export default function Portfolio() {
                 <button
                   key={item}
                   onClick={() => scrollToSection(item)}
-                  className={`capitalize transition-colors duration-200 hover:text-blue-400 ${activeSection === item ? 'text-blue-400 font-semibold' : 'text-gray-300'
+                  className={`capitalize transition-colors duration-200 hover:text-white ${activeSection === item ? 'text-white font-semibold' : 'text-gray-400'
                     }`}
                 >
                   {item.replace('-', ' ')}
@@ -266,18 +266,13 @@ export default function Portfolio() {
       </header>
 
       {/* Hero Section */}
-      <section id="home" className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden z-10">
-        {/* Background Effects */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/5 to-purple-900/5"></div>
-        <div className="absolute top-20 left-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
-
-        <div className="text-center max-w-4xl mx-auto relative z-10 mt-16 sm:mt-6 px-2">
+      <section id="home" className="min-h-0 py-20 pt-24 pb-10 sm:min-h-screen sm:py-0 flex items-center justify-center px-6 relative overflow-hidden z-10 mt-4">
+        <div className="text-center max-w-4xl mx-auto relative z-10 sm:mt-6 px-2">
           <div className="animate-fade-in-up">
-            <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4 sm:mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-3 sm:mb-6 leading-tight">
               AUNG KO KO NAING
             </h1>
-            <p className="text-sm sm:text-base md:text-lg text-gray-400 mb-4 sm:mb-6 animate-fade-in-up-delay-2">
+            <p className="text-sm sm:text-base md:text-lg text-gray-400 mb-3 sm:mb-6 animate-fade-in-up-delay-2">
               Mobile Developer • iOS | Android | Hybrid
             </p>
             <TextType
@@ -286,7 +281,7 @@ export default function Portfolio() {
               pauseDuration={1500}
               showCursor={true}
               cursorCharacter="|"
-              className='text-sm sm:text-base md:text-lg text-gray-400 mb-8 sm:mb-12 px-2'
+              className='text-sm sm:text-base md:text-lg text-gray-400 mb-6 sm:mb-12 px-2'
             />
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center animate-fade-in-up-delay-3 px-4">
               <button
@@ -303,7 +298,7 @@ export default function Portfolio() {
               </button>
             </div>
             <div
-              className="relative mx-auto w-full max-w-[260px] sm:max-w-[320px] md:max-w-[380px] will-change-transform transition-transform duration-100 ease-out mt-8 sm:mt-12"
+              className="relative mx-auto w-full max-w-[220px] sm:max-w-[320px] md:max-w-[380px] will-change-transform transition-transform duration-100 ease-out mt-5 sm:mt-12"
               style={{
                 transform: `rotate(${rotation}deg)`,
               }}
@@ -320,34 +315,34 @@ export default function Portfolio() {
       </section>
 
       {/* About Me Section */}
-      <section id="about" className="relative overflow-hidden z-10 px-6 py-16 md:py-20">
+      <section id="about" className="relative overflow-hidden z-10 px-6 py-10 sm:py-16 md:py-20">
         <div className="max-w-6xl mx-auto relative z-10">
-          <div className="flex flex-col lg:flex-row lg:items-center gap-10 lg:gap-16">
-            <div className="space-y-6 sm:space-y-8 flex-1 min-w-0 order-2 lg:order-1">
-              <div className="space-y-4 sm:space-y-6">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-8 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          <div className="flex flex-col lg:flex-row lg:items-center gap-6 sm:gap-10 lg:gap-16">
+            <div className="space-y-4 sm:space-y-8 flex-1 min-w-0 order-2 lg:order-1">
+              <div className="space-y-3 sm:space-y-6">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-8 text-white">
                   About Me
                 </h2>
-                <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
+                <p className="text-base sm:text-lg text-gray-400 leading-relaxed">
                   I&apos;m a passionate mobile developer with over 1 years of experience creating
                   innovative mobile applications. I specialize in cross-platform development
                   using Ionic and Flutter.
                 </p>
                 <div ref={sectionRef} className="grid grid-cols-2 gap-4 sm:gap-6 md:gap-8 text-white">
                   <div className="flex flex-col">
-                    <span className="text-xs sm:text-sm text-gray-300 tracking-wide">Year of Experience</span>
+                    <span className="text-xs sm:text-sm text-gray-500 tracking-wide">Year of Experience</span>
                     <p className="text-2xl sm:text-3xl font-bold text-white mt-1">{counts[0]}{stats[0].suffix}</p>
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-xs sm:text-sm text-gray-300 tracking-wide">Project Completed</span>
+                    <span className="text-xs sm:text-sm text-gray-500 tracking-wide">Project Completed</span>
                     <p className="text-2xl sm:text-3xl font-bold text-white mt-1">{counts[1]}{stats[1].suffix}</p>
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-xs sm:text-sm text-gray-300 tracking-wide">Awards & Recognitions</span>
+                    <span className="text-xs sm:text-sm text-gray-500 tracking-wide">Awards & Recognitions</span>
                     <p className="text-2xl sm:text-3xl font-bold text-white mt-1">{counts[2]}{stats[2].suffix}</p>
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-xs sm:text-sm text-gray-300 tracking-wide">Hours of coding</span>
+                    <span className="text-xs sm:text-sm text-gray-500 tracking-wide">Hours of coding</span>
                     <p className="text-2xl sm:text-3xl font-bold text-white mt-1">{counts[3].toLocaleString()}{stats[3].suffix}</p>
                   </div>
                 </div>
@@ -374,14 +369,14 @@ export default function Portfolio() {
               </div>
             </div>
 
-            <div className="relative rounded-[16px] border border-gray-600 p-3 sm:p-4 w-full max-w-xs sm:max-w-sm mx-auto lg:mx-0 lg:max-w-md shrink-0 order-1 lg:order-2">
+            <div className="relative rounded-[16px] border border-white/20 p-3 sm:p-4 w-full max-w-xs sm:max-w-sm mx-auto lg:mx-0 lg:max-w-md shrink-0 order-1 lg:order-2">
               <img src="profile.png" alt="Profile" className="w-full h-auto rounded-lg object-cover" />
             </div>
           </div>
         </div>
       </section>
 
-      <div className="relative z-10 h-[160px] sm:h-[200px] overflow-hidden flex justify-center items-center mx-4 sm:mx-10">
+      <div className="relative z-10 h-[100px] sm:h-[160px] md:h-[200px] overflow-hidden flex justify-center items-center mx-4 sm:mx-10">
         <LogoLoop
           logos={techLogos}
           speed={120}
@@ -401,19 +396,18 @@ export default function Portfolio() {
       {/* Projects / Case Studies Section */}
       <section
         id="case-studies"
-        className="py-24 px-6 relative overflow-hidden z-10"
+        className="py-12 sm:py-20 md:py-24 px-6 relative overflow-hidden z-10"
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/5 via-purple-900/5 to-black/40" />
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 sm:gap-6 mb-8 sm:mb-12">
             <div>
-              <p className="text-sm uppercase tracking-[0.3em] text-blue-300/70 mb-3">
+              <p className="text-sm uppercase tracking-[0.3em] text-gray-500 mb-3">
                 Selected work
               </p>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">
                 Projects that I&apos;ve built
               </h2>
-              <p className="mt-4 text-gray-300 max-w-2xl">
+              <p className="mt-3 sm:mt-4 text-gray-400 max-w-2xl">
                 A mix of client work and personal projects that show how I design, build,
                 and ship mobile experiences from idea to production.
               </p>
@@ -428,11 +422,11 @@ export default function Portfolio() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-8">
             {projects.slice(0, 6).map((project) => (
               <article
                 key={project.slug}
-                className="group relative h-full bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 rounded-3xl p-6 flex flex-col overflow-hidden hover:border-blue-400/60 hover:shadow-[0_0_40px_rgba(59,130,246,0.35)] transition-all duration-300"
+                className="group relative h-full bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 rounded-3xl p-4 sm:p-6 flex flex-col overflow-hidden hover:border-blue-400/60 hover:shadow-[0_0_40px_rgba(59,130,246,0.35)] transition-all duration-300"
               >
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-500/15 via-purple-500/10 to-transparent blur-3xl" />
@@ -525,56 +519,49 @@ export default function Portfolio() {
 
 
       {/* Education Section */}
-      <section id="education" className="py-20 px-6 relative overflow-hidden z-10" ref={educationSectionRef}>
-        {/* Background Effects */}
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/5 to-blue-900/5"></div>
-        <div className="absolute top-20 left-20 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-
+      <section id="education" className="py-10 sm:py-16 md:py-20 px-6 relative overflow-hidden z-10" ref={educationSectionRef}>
         <div className="max-w-7xl mx-auto relative z-10">
-          <h2 
-            className={`text-3xl sm:text-4xl md:text-6xl font-bold text-center mb-10 sm:mb-16 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent transition-all duration-1000 px-4 ${
-              educationVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
+          <h2
+            className={`text-3xl sm:text-4xl md:text-6xl font-bold text-center mb-6 sm:mb-16 text-white transition-all duration-1000 px-4 ${educationVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
           >
             Education
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {education.map((edu, index) => (
               <div
                 key={index}
-                className={`group relative bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500 hover:scale-105 hover:border-purple-400/50 hover:shadow-2xl hover:shadow-purple-500/20 ${
-                  educationVisible 
-                    ? 'opacity-100 translate-y-0' 
+                className={`group relative bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-6 overflow-hidden transition-all duration-500 hover:scale-105 hover:border-purple-400/50 hover:shadow-2xl hover:shadow-purple-500/20 ${educationVisible
+                    ? 'opacity-100 translate-y-0'
                     : 'opacity-0 translate-y-12'
-                }`}
+                  }`}
                 style={{
                   transitionDelay: educationVisible ? `${index * 100}ms` : '0ms'
                 }}
               >
                 {/* Gradient Border Effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-blue-500/0 to-purple-500/0 group-hover:from-purple-500/20 group-hover:via-blue-500/20 group-hover:to-purple-500/20 transition-all duration-500 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl"></div>
-                
+
                 {/* Animated Background Gradient */}
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 to-blue-500/0 group-hover:from-purple-500/10 group-hover:to-blue-500/10 transition-all duration-500 rounded-2xl"></div>
-                
+
                 {/* Content */}
                 <div className="relative z-10">
                   {/* Icon/Emoji Badge */}
                   <div className="w-14 h-14 mb-4 rounded-xl bg-gradient-to-br from-purple-500/20 to-blue-500/20 border border-purple-400/30 flex items-center justify-center text-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                     🎓
                   </div>
-                  
+
                   {/* Degree Title */}
                   <h3 className="text-xl font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-blue-400 transition-all duration-300">
                     {edu.degree}
                   </h3>
-                  
+
                   {/* School Name */}
                   <p className="text-base text-blue-400 font-semibold mb-4 group-hover:text-blue-300 transition-colors duration-300">
                     {edu.school}
                   </p>
-                  
+
                   {/* Year Badge */}
                   <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-400/20 group-hover:border-purple-400/40 group-hover:from-purple-500/20 group-hover:to-blue-500/20 transition-all duration-300">
                     <svg className="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -582,16 +569,16 @@ export default function Portfolio() {
                     </svg>
                     <span className="text-sm text-gray-300 font-medium">{edu.year}</span>
                   </div>
-                  
+
                   {/* Description */}
                   <p className="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
                     {edu.description}
                   </p>
-                  
+
                   {/* Decorative Line */}
                   <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-purple-500/50 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
                 </div>
-                
+
                 {/* Shine Effect on Hover */}
                 <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
               </div>
@@ -601,13 +588,10 @@ export default function Portfolio() {
       </section>
 
       {/* Contact Section - Framer Style */}
-      <section id="contact" className="min-h-screen text-white relative overflow-hidden flex items-center justify-center z-10 py-16 sm:py-20">
-        {/* Background Effects */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/5 to-purple-900/5"></div>
-
+      <section id="contact" className="min-h-0 sm:min-h-screen text-white relative overflow-hidden flex items-center justify-center z-10 py-12 sm:py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 text-center w-full">
           {/* Interactive Icons Row */}
-          <div className="flex justify-center items-center gap-2 sm:gap-4 md:gap-6 mb-6 sm:mb-8">
+          <div className="flex justify-center items-center gap-2 sm:gap-4 md:gap-6 mb-4 sm:mb-8">
             {/* Icon 1 */}
             <div className="w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-transparent border-2 border-blue-400/30 rounded-xl flex items-center justify-center hover:border-blue-400/60 transition-all duration-300 cursor-pointer">
               <div className="w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-blue-400/20 rounded-lg flex items-center justify-center">
@@ -655,18 +639,16 @@ export default function Portfolio() {
           </div>
 
           {/* Main Headline */}
-          <div className="mb-6 sm:mb-8">
-            <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-bold mb-4 sm:mb-8 leading-tight">
+          <div className="mb-4 sm:mb-8">
+            <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-bold mb-3 sm:mb-8 leading-tight text-white">
               Step into the<br className="hidden sm:block" />
               <span className="sm:hidden"> </span>
-              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                future of design
-              </span>
+              future of design
             </h2>
           </div>
 
           {/* Subtitle */}
-          <p className="text-base sm:text-xl md:text-2xl text-gray-300 mb-6 sm:mb-8 max-w-4xl mx-auto leading-relaxed px-2">
+          <p className="text-base sm:text-xl md:text-2xl text-gray-400 mb-5 sm:mb-8 max-w-4xl mx-auto leading-relaxed px-2">
             Join thousands of developers and teams using modern technologies
             <span className="hidden sm:inline"><br /></span>
             <span className="sm:hidden"> </span>
@@ -695,12 +677,12 @@ export default function Portfolio() {
       </section>
 
       {/* Footer */}
-      <footer className="text-white py-8 sm:py-12 px-4 sm:px-6 relative overflow-hidden z-10">
+      <footer className="text-white py-6 sm:py-12 px-4 sm:px-6 relative overflow-hidden z-10">
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
             <div className='flex items-center space-x-3 justify-center md:justify-start'>
-              <img className="w-10 h-10 object-contain bg-transparent rounded-xl shadow-lg border border-gray-600 p-1.5" src="logo.png" alt="logo" />
-              <h3 className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">AUNG KO KO NAING</h3>
+              <img className="w-10 h-10 object-contain bg-transparent rounded-xl shadow-lg border border-white/20 p-1.5" src="logo.png" alt="logo" />
+              <h3 className="text-lg sm:text-2xl font-bold text-white">AUNG KO KO NAING</h3>
             </div>
             <div className="flex items-center space-x-3">
               <a href="https://github.com/ademon118" aria-label="GitHub" className="w-8 h-8 flex items-center justify-center rounded-lg border border-blue-400/30 bg-white/5 hover:bg-blue-400/10 hover:text-blue-400 text-gray-300 transition-all duration-300">
@@ -731,22 +713,13 @@ export default function Portfolio() {
             </div>
           </div>
 
-          <div className="border-t border-gray-800 mt-4 pt-4 text-center space-y-2">
-            <p className="text-gray-400 flex items-center justify-center gap-2">
-              Made with
-              <button
-                onClick={() => setIsLiked(!isLiked)}
-                className="relative transform transition-all duration-300 hover:scale-125 active:scale-110"
-              >
-                <span
-                  className={`transition-all duration-300 ${isLiked ? 'animate-pulse' : ''} ${isLiked ? 'text-red-500' : 'text-gray-400'}`}
-                >
-                  {isLiked ? '❤️' : '🤍'}
-                </span>
-              </button>
-              by Aung Ko Ko Naing
+          <div className="border-t border-white/10 mt-4 pt-4 text-center space-y-2">
+            <p className="text-gray-400">
+              Designed & Built by <span className="font-medium text-white">Aung Ko Ko Naing</span>
             </p>
-            <p className="text-gray-500 text-sm">Licensed under BlueStone</p>
+            <p className="text-gray-500 text-sm">
+              © {new Date().getFullYear()} All rights reserved.
+            </p>
           </div>
         </div>
       </footer>

@@ -23,9 +23,7 @@ export default async function ProjectPage({
   const secondaryImages = project.images?.slice(1) ?? [];
 
   return (
-    <main className="min-h-screen bg-[#050515] text-white relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.25),_transparent_60%),radial-gradient(circle_at_bottom,_rgba(147,51,234,0.2),_transparent_55%)]" />
-
+    <main className="min-h-screen bg-black text-white relative overflow-hidden">
       <div className="relative z-10 max-w-5xl mx-auto px-6 py-10 md:py-16">
         <div className="mb-8 flex items-center justify-between gap-4">
           <Link

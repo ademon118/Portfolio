@@ -139,16 +139,16 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #111;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #444;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #666;
 }
 
 /* Hover effects */

@@ -32,12 +32,9 @@ export default function WhatImDoingNow() {
   const primaryActivity = presence?.activities?.[0];
 
   return (
-    <section id="now" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 relative overflow-hidden z-10">
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/5 to-purple-900/5" />
-      <div className="absolute top-10 right-20 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
-
+    <section id="now" className="py-8 sm:py-16 md:py-20 px-4 sm:px-6 relative overflow-hidden z-10">
       <div className="max-w-3xl mx-auto relative z-10">
-        <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-center mb-6 sm:mb-10 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent px-2">
+        <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-center mb-4 sm:mb-10 text-white px-2">
           What I&apos;m doing now
         </h2>
 
@@ -57,7 +54,7 @@ export default function WhatImDoingNow() {
               </div>
             </div>
           ) : user ? (
-            <div className="relative z-10 flex flex-col sm:flex-row gap-6 items-start">
+            <div className="relative z-10 flex flex-col sm:flex-row gap-4 sm:gap-6 items-start">
               <div className="relative shrink-0">
                 <img
                   src={getDiscordAvatarUrl(user)}
@@ -65,13 +62,13 @@ export default function WhatImDoingNow() {
                   className="w-16 h-16 rounded-2xl border border-white/20 shadow-lg shadow-blue-500/20"
                 />
                 <span
-                  className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-[#0f0b21]"
+                  className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-black"
                   style={{ backgroundColor: getStatusColor(status) }}
                   title={getStatusLabel(status)}
                 />
               </div>
 
-              <div className="flex-1 min-w-0 space-y-4">
+              <div className="flex-1 min-w-0 space-y-3 sm:space-y-4">
                 <div>
                   <div className="flex flex-wrap items-center gap-2 mb-1">
                     <h3 className="text-xl font-semibold text-white">
@@ -98,20 +95,20 @@ export default function WhatImDoingNow() {
                 </div>
 
                 {presence?.listening_to_spotify && presence.spotify ? (
-                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#1db954]/10 border border-[#1db954]/30">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 p-4 rounded-2xl bg-[#1db954]/10 border border-[#1db954]/30 w-full">
                     <img
                       src={presence.spotify.album_art_url}
                       alt={presence.spotify.album}
-                      className="w-14 h-14 rounded-lg shadow-md"
+                      className="w-14 h-14 rounded-lg shadow-md shrink-0"
                     />
-                    <div className="min-w-0">
+                    <div className="min-w-0 flex-1 w-full">
                       <p className="text-xs text-[#1db954] uppercase tracking-wider mb-1">
                         Listening to Spotify
                       </p>
-                      <p className="text-white font-medium truncate">
+                      <p className="text-white font-medium break-words leading-snug">
                         {presence.spotify.song}
                       </p>
-                      <p className="text-sm text-gray-400 truncate">
+                      <p className="text-sm text-gray-400 break-words mt-0.5 leading-snug">
                         by {presence.spotify.artist}
                       </p>
                     </div>
@@ -123,10 +120,10 @@ export default function WhatImDoingNow() {
                       {primaryActivity.type !== 4 ? primaryActivity.name : ''}
                     </p>
                     {primaryActivity.details && (
-                      <p className="text-white font-medium">{primaryActivity.details}</p>
+                      <p className="text-white font-medium break-words">{primaryActivity.details}</p>
                     )}
                     {primaryActivity.state && (
-                      <p className="text-sm text-gray-400">{primaryActivity.state}</p>
+                      <p className="text-sm text-gray-400 break-words">{primaryActivity.state}</p>
                     )}
                     {!primaryActivity.details && !primaryActivity.state && primaryActivity.type === 4 && (
                       <p className="text-white font-medium">{primaryActivity.name}</p>
