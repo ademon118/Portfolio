@@ -14,6 +14,7 @@ import {
 import { FaJava } from 'react-icons/fa';
 import TextType from '@/components/TextType';
 import AnimatedBackground from '@/components/AnimatedBackground';
+import WhatImDoingNow from '@/components/WhatImDoingNow';
 import { projects } from '@/lib/projects';
 
 
@@ -211,7 +212,7 @@ export default function Portfolio() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0f0b21] text-white relative">
+    <div className="min-h-screen bg-[#0f0b21] text-white relative overflow-x-hidden">
       {/* Animated Background */}
       <AnimatedBackground />
 
@@ -242,9 +243,11 @@ export default function Portfolio() {
         }`}>
         <nav className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent ">AUNG KO KO NAING</div>
+            <div className="text-sm sm:text-lg md:text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent truncate max-w-[60vw] sm:max-w-none">
+              AUNG KO KO NAING
+            </div>
             <div className="hidden md:flex space-x-8">
-              {['home', 'about', 'case-studies', 'experience', 'education', 'contact'].map((item) => (
+              {['home', 'about', 'now', 'case-studies', 'experience', 'education', 'contact'].map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item)}
@@ -269,12 +272,12 @@ export default function Portfolio() {
         <div className="absolute top-20 left-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-20 right-10 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
 
-        <div className="text-center max-w-4xl mx-auto relative z-10 mt-6">
+        <div className="text-center max-w-4xl mx-auto relative z-10 mt-16 sm:mt-6 px-2">
           <div className="animate-fade-in-up">
-            <h1 className="text-6xl md:text-8xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-6">
+            <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4 sm:mb-6 leading-tight">
               AUNG KO KO NAING
             </h1>
-            <p className="text-lg text-gray-400 mb-6 animate-fade-in-up-delay-2">
+            <p className="text-sm sm:text-base md:text-lg text-gray-400 mb-4 sm:mb-6 animate-fade-in-up-delay-2">
               Mobile Developer • iOS | Android | Hybrid
             </p>
             <TextType
@@ -283,24 +286,24 @@ export default function Portfolio() {
               pauseDuration={1500}
               showCursor={true}
               cursorCharacter="|"
-              className='text-lg text-gray-400 mb-12'
+              className='text-sm sm:text-base md:text-lg text-gray-400 mb-8 sm:mb-12 px-2'
             />
-            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up-delay-3">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center animate-fade-in-up-delay-3 px-4">
               <button
                 onClick={() => scrollToSection('case-studies')}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/25"
+                className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/25"
               >
                 View My Work
               </button>
               <button
                 onClick={() => scrollToSection('contact')}
-                className="border-2 border-blue-400 text-blue-400 px-8 py-3 rounded-full hover:bg-blue-400 hover:text-black transition-all duration-300 transform hover:scale-105"
+                className="w-full sm:w-auto border-2 border-blue-400 text-blue-400 px-8 py-3 rounded-full hover:bg-blue-400 hover:text-black transition-all duration-300 transform hover:scale-105"
               >
                 Get In Touch
               </button>
             </div>
             <div
-              className="relative mx-auto w-[400px] will-change-transform md:w-[380px] transition-transform duration-100 ease-out mt-12"
+              className="relative mx-auto w-full max-w-[260px] sm:max-w-[320px] md:max-w-[380px] will-change-transform transition-transform duration-100 ease-out mt-8 sm:mt-12"
               style={{
                 transform: `rotate(${rotation}deg)`,
               }}
@@ -317,45 +320,37 @@ export default function Portfolio() {
       </section>
 
       {/* About Me Section */}
-      <section id="about" className="relative overflow-hidden z-10">
-        {/* Background Effects */}
-
+      <section id="about" className="relative overflow-hidden z-10 px-6 py-16 md:py-20">
         <div className="max-w-6xl mx-auto relative z-10">
-          <div className="flex items-center gap-50 ">
-            <div className="space-y-8">
-              <div className="space-y-6">
-                <h2 className="text-5xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          <div className="flex flex-col lg:flex-row lg:items-center gap-10 lg:gap-16">
+            <div className="space-y-6 sm:space-y-8 flex-1 min-w-0 order-2 lg:order-1">
+              <div className="space-y-4 sm:space-y-6">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-8 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                   About Me
                 </h2>
-                <p className="text-lg text-gray-300 leading-relaxed">
+                <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
                   I&apos;m a passionate mobile developer with over 1 years of experience creating
                   innovative mobile applications. I specialize in cross-platform development
                   using Ionic and Flutter.
                 </p>
-                <div ref={sectionRef} className="flex flex-col gap-4 text-white">
-                  <div className="flex flex-row gap-32">
-                    <div className="flex flex-col w-48">
-                      <span className="text-sm text-gray-300 tracking-wide">Year of Experience</span>
-                      <p className="text-3xl font-bold text-white mt-1">{counts[0]}{stats[0].suffix}</p>
-                    </div>
-                    <div className="flex flex-col w-48">
-                      <span className="text-sm text-gray-300 tracking-wide">Project Completed</span>
-                      <p className="text-3xl font-bold text-white mt-1">{counts[1]}{stats[1].suffix}</p>
-                    </div>
+                <div ref={sectionRef} className="grid grid-cols-2 gap-4 sm:gap-6 md:gap-8 text-white">
+                  <div className="flex flex-col">
+                    <span className="text-xs sm:text-sm text-gray-300 tracking-wide">Year of Experience</span>
+                    <p className="text-2xl sm:text-3xl font-bold text-white mt-1">{counts[0]}{stats[0].suffix}</p>
                   </div>
-
-                  <div className="flex flex-row gap-32">
-                    <div className="flex flex-col w-48">
-                      <span className="text-sm text-gray-300 tracking-wide">Awards & Recognitions</span>
-                      <p className="text-3xl font-bold text-white mt-1">{counts[2]}{stats[2].suffix}</p>
-                    </div>
-                    <div className="flex flex-col w-48">
-                      <span className="text-sm text-gray-300 tracking-wide">Hours of coding</span>
-                      <p className="text-3xl font-bold text-white mt-1">{counts[3].toLocaleString()}{stats[3].suffix}</p>
-                    </div>
+                  <div className="flex flex-col">
+                    <span className="text-xs sm:text-sm text-gray-300 tracking-wide">Project Completed</span>
+                    <p className="text-2xl sm:text-3xl font-bold text-white mt-1">{counts[1]}{stats[1].suffix}</p>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-xs sm:text-sm text-gray-300 tracking-wide">Awards & Recognitions</span>
+                    <p className="text-2xl sm:text-3xl font-bold text-white mt-1">{counts[2]}{stats[2].suffix}</p>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-xs sm:text-sm text-gray-300 tracking-wide">Hours of coding</span>
+                    <p className="text-2xl sm:text-3xl font-bold text-white mt-1">{counts[3].toLocaleString()}{stats[3].suffix}</p>
                   </div>
                 </div>
-
 
                 <button
                   onClick={() => {
@@ -365,7 +360,7 @@ export default function Portfolio() {
                   }}
                   onMouseEnter={() => iconRef.current?.startAnimation()}
                   onMouseLeave={() => iconRef.current?.stopAnimation()}
-                  className="group relative px-8 py-3 rounded-full mt-4 overflow-hidden transition-all duration-300 flex items-center gap-2 font-medium shadow-lg"
+                  className="group relative px-6 sm:px-8 py-3 rounded-full mt-2 sm:mt-4 overflow-hidden transition-all duration-300 inline-flex items-center gap-2 font-medium shadow-lg text-sm sm:text-base"
                   style={{
                     background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
                   }}
@@ -379,14 +374,14 @@ export default function Portfolio() {
               </div>
             </div>
 
-            <div className="relative rounded-[16px] border border-gray-600 p-4 w-250 h-100">
-              <img src="profile.png" alt="Profile" />
+            <div className="relative rounded-[16px] border border-gray-600 p-3 sm:p-4 w-full max-w-xs sm:max-w-sm mx-auto lg:mx-0 lg:max-w-md shrink-0 order-1 lg:order-2">
+              <img src="profile.png" alt="Profile" className="w-full h-auto rounded-lg object-cover" />
             </div>
           </div>
         </div>
       </section>
 
-      <div className="relative z-10" style={{ height: '200px', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '40px', marginRight: '40px' }}>
+      <div className="relative z-10 h-[160px] sm:h-[200px] overflow-hidden flex justify-center items-center mx-4 sm:mx-10">
         <LogoLoop
           logos={techLogos}
           speed={120}
@@ -400,6 +395,9 @@ export default function Portfolio() {
           ariaLabel="Technology partners"
         />
       </div>
+
+      <WhatImDoingNow />
+
       {/* Projects / Case Studies Section */}
       <section
         id="case-studies"
@@ -412,7 +410,7 @@ export default function Portfolio() {
               <p className="text-sm uppercase tracking-[0.3em] text-blue-300/70 mb-3">
                 Selected work
               </p>
-              <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                 Projects that I&apos;ve built
               </h2>
               <p className="mt-4 text-gray-300 max-w-2xl">
@@ -535,7 +533,7 @@ export default function Portfolio() {
 
         <div className="max-w-7xl mx-auto relative z-10">
           <h2 
-            className={`text-5xl md:text-6xl font-bold text-center mb-16 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent transition-all duration-1000 ${
+            className={`text-3xl sm:text-4xl md:text-6xl font-bold text-center mb-10 sm:mb-16 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent transition-all duration-1000 px-4 ${
               educationVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
@@ -603,24 +601,24 @@ export default function Portfolio() {
       </section>
 
       {/* Contact Section - Framer Style */}
-      <section id="contact" className="min-h-screen text-white relative overflow-hidden flex items-center justify-center z-10">
+      <section id="contact" className="min-h-screen text-white relative overflow-hidden flex items-center justify-center z-10 py-16 sm:py-20">
         {/* Background Effects */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/5 to-purple-900/5"></div>
 
-        <div className="max-w-6xl mx-auto px-6 relative z-10 text-center">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 text-center w-full">
           {/* Interactive Icons Row */}
-          <div className="flex justify-center items-center gap-6 mb-8">
+          <div className="flex justify-center items-center gap-2 sm:gap-4 md:gap-6 mb-6 sm:mb-8">
             {/* Icon 1 */}
-            <div className="w-16 h-16 bg-transparent border-2 border-blue-400/30 rounded-xl flex items-center justify-center hover:border-blue-400/60 transition-all duration-300 cursor-pointer">
-              <div className="w-8 h-8 bg-blue-400/20 rounded-lg flex items-center justify-center">
-                <span className="text-blue-400 text-lg font-bold">C</span>
+            <div className="w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-transparent border-2 border-blue-400/30 rounded-xl flex items-center justify-center hover:border-blue-400/60 transition-all duration-300 cursor-pointer">
+              <div className="w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-blue-400/20 rounded-lg flex items-center justify-center">
+                <span className="text-blue-400 text-sm sm:text-base md:text-lg font-bold">C</span>
               </div>
             </div>
 
             {/* Icon 2 */}
-            <div className="w-16 h-16 bg-transparent border-2 border-blue-400/30 rounded-xl flex items-center justify-center hover:border-blue-400/60 transition-all duration-300 cursor-pointer">
-              <div className="w-8 h-8 bg-blue-400/20 rounded-lg flex items-center justify-center">
-                <svg className="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+            <div className="w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-transparent border-2 border-blue-400/30 rounded-xl flex items-center justify-center hover:border-blue-400/60 transition-all duration-300 cursor-pointer">
+              <div className="w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-blue-400/20 rounded-lg flex items-center justify-center">
+                <svg className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                 </svg>
               </div>
@@ -628,9 +626,9 @@ export default function Portfolio() {
 
             {/* Central Active Icon */}
             <div className="relative">
-              <div className="w-20 h-20 bg-blue-500 rounded-xl flex items-center justify-center shadow-2xl shadow-blue-500/50 border-2 border-blue-400 cursor-pointer transform hover:scale-105 transition-all duration-300">
-                <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
-                  <span className="text-blue-600 text-2xl font-bold">A</span>
+              <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-blue-500 rounded-xl flex items-center justify-center shadow-2xl shadow-blue-500/50 border-2 border-blue-400 cursor-pointer transform hover:scale-105 transition-all duration-300">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-white rounded-lg flex items-center justify-center">
+                  <span className="text-blue-600 text-lg sm:text-xl md:text-2xl font-bold">A</span>
                 </div>
               </div>
               {/* Glow effect */}
@@ -638,18 +636,18 @@ export default function Portfolio() {
             </div>
 
             {/* Icon 4 */}
-            <div className="w-16 h-16 bg-transparent border-2 border-blue-400/30 rounded-xl flex items-center justify-center hover:border-blue-400/60 transition-all duration-300 cursor-pointer">
-              <div className="w-8 h-8 bg-blue-400/20 rounded-lg flex items-center justify-center">
-                <svg className="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+            <div className="w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-transparent border-2 border-blue-400/30 rounded-xl flex items-center justify-center hover:border-blue-400/60 transition-all duration-300 cursor-pointer">
+              <div className="w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-blue-400/20 rounded-lg flex items-center justify-center">
+                <svg className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                 </svg>
               </div>
             </div>
 
             {/* Icon 5 */}
-            <div className="w-16 h-16 bg-transparent border-2 border-blue-400/30 rounded-xl flex items-center justify-center hover:border-blue-400/60 transition-all duration-300 cursor-pointer">
-              <div className="w-8 h-8 bg-blue-400/20 rounded-lg flex items-center justify-center">
-                <svg className="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+            <div className="w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-transparent border-2 border-blue-400/30 rounded-xl flex items-center justify-center hover:border-blue-400/60 transition-all duration-300 cursor-pointer">
+              <div className="w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-blue-400/20 rounded-lg flex items-center justify-center">
+                <svg className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                 </svg>
               </div>
@@ -657,9 +655,10 @@ export default function Portfolio() {
           </div>
 
           {/* Main Headline */}
-          <div className="mb-8">
-            <h2 className="text-7xl md:text-9xl font-bold mb-8 leading-tight">
-              Step into the<br />
+          <div className="mb-6 sm:mb-8">
+            <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-bold mb-4 sm:mb-8 leading-tight">
+              Step into the<br className="hidden sm:block" />
+              <span className="sm:hidden"> </span>
               <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                 future of design
               </span>
@@ -667,22 +666,24 @@ export default function Portfolio() {
           </div>
 
           {/* Subtitle */}
-          <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed">
-            Join thousands of developers and teams using modern technologies<br />
+          <p className="text-base sm:text-xl md:text-2xl text-gray-300 mb-6 sm:mb-8 max-w-4xl mx-auto leading-relaxed px-2">
+            Join thousands of developers and teams using modern technologies
+            <span className="hidden sm:inline"><br /></span>
+            <span className="sm:hidden"> </span>
             to turn ideas into high-performing mobile applications, fast.
           </p>
 
           {/* Call-to-Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up-delay-3">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center animate-fade-in-up-delay-3 px-4">
             <button
               onClick={() => scrollToSection('case-studies')}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/25"
+              className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/25"
             >
               Contact Me
             </button>
             <button
               onClick={() => scrollToSection('contact')}
-              className="border-2 border-blue-400 text-blue-400 px-8 py-3 rounded-full hover:bg-blue-400 hover:text-black transition-all duration-300 transform hover:scale-105"
+              className="w-full sm:w-auto border-2 border-blue-400 text-blue-400 px-8 py-3 rounded-full hover:bg-blue-400 hover:text-black transition-all duration-300 transform hover:scale-105"
             >
               View My Work
             </button>
@@ -694,14 +695,12 @@ export default function Portfolio() {
       </section>
 
       {/* Footer */}
-      <footer className="text-white py-12 px-6 relative overflow-hidden z-10">
-        {/* Background Effects */}
-
+      <footer className="text-white py-8 sm:py-12 px-4 sm:px-6 relative overflow-hidden z-10">
         <div className="max-w-6xl mx-auto relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className='flex items-center space-x-3'>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+            <div className='flex items-center space-x-3 justify-center md:justify-start'>
               <img className="w-10 h-10 object-contain bg-transparent rounded-xl shadow-lg border border-gray-600 p-1.5" src="logo.png" alt="logo" />
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">AUNG KO KO NAING</h3>
+              <h3 className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">AUNG KO KO NAING</h3>
             </div>
             <div className="flex items-center space-x-3">
               <a href="https://github.com/ademon118" aria-label="GitHub" className="w-8 h-8 flex items-center justify-center rounded-lg border border-blue-400/30 bg-white/5 hover:bg-blue-400/10 hover:text-blue-400 text-gray-300 transition-all duration-300">
