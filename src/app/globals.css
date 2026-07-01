@@ -220,7 +220,22 @@ html {
   }
 }
 
-/* Custom Cursor Animations */
+/* Custom cursor */
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
+
+body.contact-form-focus input,
+body.contact-form-focus textarea {
+  cursor: text !important;
+}
+
+body.contact-form-focus button {
+  cursor: pointer !important;
+}
+
 @keyframes cursorPulse {
   0%, 100% {
     transform: scale(1);
@@ -255,16 +270,10 @@ html {
   }
 }
 
-/* Hide default cursor globally */
-* {
-  cursor: none !important;
-}
-
-/* Custom cursor styles */
 .custom-cursor {
   position: fixed;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 10050;
   transition: transform 0.1s ease-out;
 }
 

@@ -14,6 +14,8 @@ import {
 import { FaJava } from 'react-icons/fa';
 import TextType from '@/components/TextType';
 import AnimatedBackground from '@/components/AnimatedBackground';
+import CustomCursor from '@/components/CustomCursor';
+import ScheduleMeetingModal from '@/components/ScheduleMeetingModal';
 import WhatImDoingNow from '@/components/WhatImDoingNow';
 import { projects } from '@/lib/projects';
 
@@ -22,8 +24,13 @@ export default function Portfolio() {
   const [activeSection, setActiveSection] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
+  const [showContactModal, setShowContactModal] = useState(false);
+  const [showScheduleModal, setShowScheduleModal] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [isModalInputFocused, setIsModalInputFocused] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
+  const [popupMeetLink, setPopupMeetLink] = useState<string | null>(null);
   const [isLiked, setIsLiked] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -89,6 +96,51 @@ export default function Portfolio() {
     requestAnimationFrame(animate);
   }, [visible]);
 
+  useEffect(() => {
+    if (!showPopup) return;
+    const timer = setTimeout(() => {
+      setShowPopup(false);
+      setPopupMeetLink(null);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [showPopup]);
+
+  useEffect(() => {
+    if (!showContactModal && !showScheduleModal) {
+      setIsModalInputFocused(false);
+    }
+  }, [showContactModal, showScheduleModal]);
+
+  useEffect(() => {
+    if (isModalInputFocused) {
+      document.body.classList.add('contact-form-focus');
+    } else {
+      document.body.classList.remove('contact-form-focus');
+    }
+
+    return () => document.body.classList.remove('contact-form-focus');
+  }, [isModalInputFocused]);
+
+  const handleModalFormFocusIn = (e: React.FocusEvent<HTMLFormElement>) => {
+    if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+      setIsModalInputFocused(true);
+    }
+  };
+
+  const handleModalFormFocusOut = (e: React.FocusEvent<HTMLFormElement>) => {
+    const form = e.currentTarget;
+    requestAnimationFrame(() => {
+      if (!form.contains(document.activeElement)) {
+        setIsModalInputFocused(false);
+      }
+    });
+  };
+
+  const showSuccessToast = (message: string, meetLink?: string) => {
+    setPopupMessage(message);
+    setPopupMeetLink(meetLink ?? null);
+    setShowPopup(true);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -105,33 +157,6 @@ export default function Portfolio() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
-    const handleMouseEnter = () => setIsHovering(true);
-    const handleMouseLeave = () => setIsHovering(false);
-
-    // Add event listeners
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseenter', handleMouseEnter);
-    document.addEventListener('mouseleave', handleMouseLeave);
-
-    // Hide default cursor
-    document.body.style.cursor = 'none';
-
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseenter', handleMouseEnter);
-      document.removeEventListener('mouseleave', handleMouseLeave);
-      document.body.style.cursor = 'auto';
-    };
-  }, []);
-
-
-
 
   const techLogos = [
     { node: <SiReact color="#61DAFB" />, title: "React", href: "https://react.dev" },
@@ -198,46 +223,65 @@ export default function Portfolio() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const openContactModal = () => {
+    setSubmitError('');
+    setShowContactModal(true);
+  };
+
+  const closeContactModal = () => {
+    if (isSubmitting) return;
+    setShowContactModal(false);
+    setSubmitError('');
+  };
+
+  const openScheduleModal = () => {
+    setShowScheduleModal(true);
+  };
+
+  const closeScheduleModal = () => {
+    if (isSubmitting) return;
+    setShowScheduleModal(false);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate form submission
-    console.log('Form submitted:', formData);
-    setShowPopup(true);
-    // Reset form
-    setFormData({ name: '', email: '', message: '' });
+    setIsSubmitting(true);
+    setSubmitError('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message.');
+      }
+
+      setShowContactModal(false);
+      showSuccessToast('Your message has been sent!');
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : 'Failed to send message.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const closePopup = () => {
     setShowPopup(false);
+    setPopupMeetLink(null);
   };
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-x-hidden">
       {/* Animated Background */}
       <AnimatedBackground />
+      <CustomCursor hidden={isModalInputFocused} />
 
-      {/* Custom Cursor */}
-      <div
-        className={`custom-cursor ${isHovering ? 'opacity-100' : 'opacity-0'
-          }`}
-        style={{
-          left: mousePosition.x,
-          top: mousePosition.y,
-          transform: 'translate(-50%, -50%)'
-        }}
-      >
-        {/* Main cursor dot */}
-        <div className="cursor-dot"></div>
-
-        {/* Outer glow ring */}
-        <div className="cursor-glow"></div>
-
-        {/* Trail effect */}
-        <div className="cursor-trail"></div>
-
-        {/* Additional sparkle effect */}
-        <div className="absolute inset-0 w-2 h-2 bg-blue-400 rounded-full animate-ping opacity-60"></div>
-      </div>
       {/* Modern Header */}
       <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-black/90 backdrop-blur-md shadow-lg border-b border-white/10' : 'bg-transparent'
         }`}>
@@ -283,7 +327,7 @@ export default function Portfolio() {
               cursorCharacter="|"
               className='text-sm sm:text-base md:text-lg text-gray-400 mb-6 sm:mb-12 px-2'
             />
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center animate-fade-in-up-delay-3 px-4">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center animate-fade-in-up-delay-3 px-4">
               <button
                 onClick={() => scrollToSection('case-studies')}
                 className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/25"
@@ -291,7 +335,7 @@ export default function Portfolio() {
                 View My Work
               </button>
               <button
-                onClick={() => scrollToSection('contact')}
+                onClick={openContactModal}
                 className="w-full sm:w-auto border-2 border-blue-400 text-blue-400 px-8 py-3 rounded-full hover:bg-blue-400 hover:text-black transition-all duration-300 transform hover:scale-105"
               >
                 Get In Touch
@@ -656,18 +700,18 @@ export default function Portfolio() {
           </p>
 
           {/* Call-to-Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center animate-fade-in-up-delay-3 px-4">
+          <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center animate-fade-in-up-delay-3 px-4">
             <button
-              onClick={() => scrollToSection('case-studies')}
+              onClick={openContactModal}
               className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/25"
             >
               Contact Me
             </button>
             <button
-              onClick={() => scrollToSection('contact')}
-              className="w-full sm:w-auto border-2 border-blue-400 text-blue-400 px-8 py-3 rounded-full hover:bg-blue-400 hover:text-black transition-all duration-300 transform hover:scale-105"
+              onClick={openScheduleModal}
+              className="w-full sm:w-auto border-2 border-purple-400 text-purple-300 px-8 py-3 rounded-full hover:bg-purple-500/20 hover:text-white transition-all duration-300 transform hover:scale-105"
             >
-              View My Work
+              Schedule Meeting
             </button>
           </div>
 
@@ -724,26 +768,143 @@ export default function Portfolio() {
         </div>
       </footer>
 
-      {/* Success Popup Modal */}
+      {/* Contact Modal */}
+      {showContactModal && (
+        <div
+          className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-[9000] p-4"
+          onClick={closeContactModal}
+        >
+          <div
+            className="bg-gradient-to-br from-white/10 to-white/[0.03] border border-white/15 rounded-3xl p-6 sm:p-8 max-w-md w-full mx-4 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-start justify-between gap-4 mb-6">
+              <div>
+                <h3 className="text-2xl font-bold text-white">Get in touch</h3>
+                <p className="text-sm text-gray-400 mt-1">Send me a message and I&apos;ll get back to you.</p>
+              </div>
+              <button
+                type="button"
+                onClick={closeContactModal}
+                className="text-gray-400 hover:text-white transition-colors text-xl leading-none"
+                aria-label="Close contact form"
+              >
+                ×
+              </button>
+            </div>
+
+            <form
+              onSubmit={handleSubmit}
+              onFocusCapture={handleModalFormFocusIn}
+              onBlurCapture={handleModalFormFocusOut}
+              className="space-y-4"
+            >
+              {submitError && (
+                <p className="text-sm text-red-400 bg-red-500/10 border border-red-400/30 rounded-xl px-4 py-3">
+                  {submitError}
+                </p>
+              )}
+              <div>
+                <label htmlFor="name" className="block text-sm text-gray-300 mb-1.5">Name</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  className="w-full rounded-xl border border-white/15 bg-black/40 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-blue-400/60"
+                  placeholder="Your name"
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm text-gray-300 mb-1.5">Email</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className="w-full rounded-xl border border-white/15 bg-black/40 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-blue-400/60"
+                  placeholder="you@email.com"
+                />
+              </div>
+              <div>
+                <label htmlFor="message" className="block text-sm text-gray-300 mb-1.5">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  required
+                  rows={4}
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  className="w-full rounded-xl border border-white/15 bg-black/40 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-blue-400/60 resize-none"
+                  placeholder="Tell me about your project..."
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-semibold disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {isSubmitting ? 'Sending...' : 'Send Message'}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      <ScheduleMeetingModal
+        isOpen={showScheduleModal}
+        onClose={closeScheduleModal}
+        onSuccess={(meetLink) => showSuccessToast('Google Meet scheduled successfully!', meetLink)}
+        onFormFocusChange={setIsModalInputFocused}
+      />
+
+      {/* Success Toast */}
       {showPopup && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-3xl p-8 max-w-md w-full mx-4 transform transition-all duration-300 scale-100">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+        <div className="fixed top-6 right-4 sm:top-8 sm:right-8 z-[9100] w-[calc(100%-2rem)] max-w-sm animate-fade-in-up">
+          <div className="relative bg-gradient-to-br from-white/10 to-white/[0.03] border border-white/15 rounded-2xl p-4 shadow-2xl backdrop-blur-md">
+            <button
+              type="button"
+              onClick={closePopup}
+              className="absolute top-3 right-3 text-gray-400 hover:text-white transition-colors text-lg leading-none"
+              aria-label="Close notification"
+            >
+              ×
+            </button>
+
+            <div className="flex items-start gap-3 pr-6">
+              <div className="w-10 h-10 rounded-full bg-green-500/20 border border-green-400/40 flex items-center justify-center shrink-0">
+                <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">Message Sent!</h3>
-              <p className="text-gray-600 mb-8">
-                Thank you for reaching out! I&apos;ll get back to you as soon as possible.
-              </p>
-              <button
-                onClick={closePopup}
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-semibold"
-              >
-                Close
-              </button>
+
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-white leading-snug">
+                  {popupMessage}
+                </p>
+                {popupMeetLink && (
+                  <a
+                    href={popupMeetLink}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="text-xs text-blue-300 hover:text-blue-200 underline mt-1 inline-block break-all"
+                  >
+                    Open Google Meet link
+                  </a>
+                )}
+                <p className="text-xs text-gray-400 mt-1">Just now</p>
+                <button
+                  type="button"
+                  onClick={closePopup}
+                  className="text-xs text-gray-400 hover:text-blue-300 transition-colors mt-2"
+                >
+                  Dismiss
+                </button>
+              </div>
             </div>
           </div>
         </div>
