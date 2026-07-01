@@ -41,7 +41,7 @@ export default async function ProjectPage({
               href={project.githubUrl}
               target="_blank"
               rel="noreferrer noopener"
-              className="inline-flex items-center gap-2 rounded-full border border-blue-400/60 bg-blue-500/10 px-4 py-1.5 text-sm text-blue-100 hover:bg-blue-500/20 hover:border-blue-300 transition-colors"
+              className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/5 px-4 py-1.5 text-sm text-gray-200 hover:bg-white/15 hover:border-white/70 transition-colors"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
               <span>View on GitHub</span>

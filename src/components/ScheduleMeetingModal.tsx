@@ -211,7 +211,7 @@ export default function ScheduleMeetingModal({
                     onClick={() => setSelectedDate(day)}
                     className={`h-9 rounded-lg text-sm transition-colors ${
                       isSelected
-                        ? 'bg-blue-500 text-white'
+                        ? 'bg-white text-black'
                         : isPast
                           ? 'text-gray-600 cursor-not-allowed'
                           : 'text-gray-200 hover:bg-white/10'
@@ -238,8 +238,8 @@ export default function ScheduleMeetingModal({
                       onClick={() => setSelectedTime(slot)}
                       className={`px-2 py-2 rounded-xl text-xs sm:text-sm border transition-colors ${
                         selectedTime === slot
-                          ? 'bg-purple-500/20 border-purple-400/60 text-purple-200'
-                          : 'border-white/10 text-gray-300 hover:border-blue-400/40 hover:text-white'
+                          ? 'bg-white/15 border-white/70 text-white'
+                          : 'border-white/10 text-gray-300 hover:border-white/40 hover:text-white'
                       }`}
                     >
                       {formatTimeLabel(slot)}
@@ -298,7 +298,7 @@ export default function ScheduleMeetingModal({
           <button
             type="submit"
             disabled={isSubmitting || !selectedDate || !selectedTime}
-            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-semibold disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full bg-white text-black px-6 py-3 rounded-xl hover:bg-gray-200 transition-all duration-300 font-semibold disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {isSubmitting ? 'Creating Google Meet...' : 'Schedule Google Meet'}
           </button>

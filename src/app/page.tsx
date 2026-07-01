@@ -40,7 +40,7 @@ export default function Portfolio() {
   const iconRef = useRef<MapPinnedIconHandle>(null);
 
   const stats = [
-    { label: 'Year of Experience', value: 1, suffix: '' },
+    { label: 'Year of Experience', value: 2, suffix: '' },
     { label: 'Project Completed', value: 10, suffix: '+' },
     { label: 'Awards & Recognitions', value: 2, suffix: '+' },
     { label: 'Hours of coding', value: 10000, suffix: '+' },
@@ -310,14 +310,14 @@ export default function Portfolio() {
       </header>
 
       {/* Hero Section */}
-      <section id="home" className="min-h-0 py-20 pt-24 pb-10 sm:min-h-screen sm:py-0 flex items-center justify-center px-6 relative overflow-hidden z-10 mt-4">
+      <section id="home" className="min-h-0 py-20 pt-24 pb-10 sm:min-h-screen sm:py-0 flex items-center justify-center px-6 relative overflow-hidden z-10 mt-8">
         <div className="text-center max-w-4xl mx-auto relative z-10 sm:mt-6 px-2">
           <div className="animate-fade-in-up">
-            <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-3 sm:mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-6xl font-bold text-white mb-3 sm:mb-6 leading-tight">
               AUNG KO KO NAING
             </h1>
             <p className="text-sm sm:text-base md:text-lg text-gray-400 mb-3 sm:mb-6 animate-fade-in-up-delay-2">
-              Mobile Developer • iOS | Android | Hybrid
+              Frontend Developer • Web | iOS | Android | Hybrid
             </p>
             <TextType
               text={["Crafting exceptional mobile experiences with modern technologies"]}
@@ -330,13 +330,13 @@ export default function Portfolio() {
             <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center animate-fade-in-up-delay-3 px-4">
               <button
                 onClick={() => scrollToSection('case-studies')}
-                className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/25"
+                className="w-full sm:w-auto bg-white text-black px-8 py-3 rounded-full hover:bg-gray-200 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-white/10 font-medium"
               >
                 View My Work
               </button>
               <button
                 onClick={openContactModal}
-                className="w-full sm:w-auto border-2 border-blue-400 text-blue-400 px-8 py-3 rounded-full hover:bg-blue-400 hover:text-black transition-all duration-300 transform hover:scale-105"
+                className="w-full sm:w-auto border-2 border-white text-white px-8 py-3 rounded-full hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-105 font-medium"
               >
                 Get In Touch
               </button>
@@ -368,8 +368,8 @@ export default function Portfolio() {
                   About Me
                 </h2>
                 <p className="text-base sm:text-lg text-gray-400 leading-relaxed">
-                  I&apos;m a passionate mobile developer with over 1 years of experience creating
-                  innovative mobile applications. I specialize in cross-platform development
+                  I&apos;m a passionate frontend developer with over 2 years of experience creating
+                  innovative web and mobile applications. I specialize in cross-platform development
                   using Ionic and Flutter.
                 </p>
                 <div ref={sectionRef} className="grid grid-cols-2 gap-4 sm:gap-6 md:gap-8 text-white">
@@ -399,15 +399,10 @@ export default function Portfolio() {
                   }}
                   onMouseEnter={() => iconRef.current?.startAnimation()}
                   onMouseLeave={() => iconRef.current?.stopAnimation()}
-                  className="group relative px-6 sm:px-8 py-3 rounded-full mt-2 sm:mt-4 overflow-hidden transition-all duration-300 inline-flex items-center gap-2 font-medium shadow-lg text-sm sm:text-base"
-                  style={{
-                    background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
-                  }}
+                  className="group relative px-6 sm:px-8 py-3 rounded-full mt-2 sm:mt-4 overflow-hidden transition-all duration-300 inline-flex items-center gap-2 font-medium shadow-lg shadow-white/10 text-sm sm:text-base bg-white text-black hover:bg-gray-200"
                 >
-                  <span className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                  <span className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                   <MapPinnedIcon ref={iconRef} size={20} duration={1} className="relative z-10" />
-                  <span className="relative z-10 text-white">Yangon, Myanmar</span>
+                  <span className="relative z-10">Yangon, Myanmar</span>
                 </button>
 
               </div>
@@ -514,7 +509,7 @@ export default function Portfolio() {
                         href={project.githubUrl}
                         target="_blank"
                         rel="noreferrer noopener"
-                        className="inline-flex items-center gap-1.5 rounded-full border border-blue-400/50 bg-blue-500/10 px-3 py-1.5 text-xs text-blue-200 hover:bg-blue-500/20 hover:border-blue-300 transition-colors"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-white/40 bg-white/5 px-3 py-1.5 text-xs text-gray-200 hover:bg-white/15 hover:border-white/70 transition-colors"
                       >
                         <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
                         <span>View code</span>
@@ -525,7 +520,7 @@ export default function Portfolio() {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noreferrer noopener"
-                        className="inline-flex items-center gap-1.5 rounded-full border border-purple-400/50 bg-purple-500/10 px-3 py-1.5 text-xs text-purple-200 hover:bg-purple-500/20 hover:border-purple-300 transition-colors"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-white/40 bg-white/5 px-3 py-1.5 text-xs text-gray-200 hover:bg-white/15 hover:border-white/70 transition-colors"
                       >
                         <span>Live demo</span>
                       </a>
@@ -703,13 +698,13 @@ export default function Portfolio() {
           <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center animate-fade-in-up-delay-3 px-4">
             <button
               onClick={openContactModal}
-              className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/25"
+              className="w-full sm:w-auto bg-white text-black px-8 py-3 rounded-full hover:bg-gray-200 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-white/10 font-medium"
             >
               Contact Me
             </button>
             <button
               onClick={openScheduleModal}
-              className="w-full sm:w-auto border-2 border-purple-400 text-purple-300 px-8 py-3 rounded-full hover:bg-purple-500/20 hover:text-white transition-all duration-300 transform hover:scale-105"
+              className="w-full sm:w-auto border-2 border-white text-white px-8 py-3 rounded-full hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-105 font-medium"
             >
               Schedule Meeting
             </button>
@@ -729,26 +724,26 @@ export default function Portfolio() {
               <h3 className="text-lg sm:text-2xl font-bold text-white">AUNG KO KO NAING</h3>
             </div>
             <div className="flex items-center space-x-3">
-              <a href="https://github.com/ademon118" aria-label="GitHub" className="w-8 h-8 flex items-center justify-center rounded-lg border border-blue-400/30 bg-white/5 hover:bg-blue-400/10 hover:text-blue-400 text-gray-300 transition-all duration-300">
+              <a href="https://github.com/ademon118" aria-label="GitHub" className="w-8 h-8 flex items-center justify-center rounded-lg border border-white/30 bg-white/5 hover:bg-white/15 hover:text-white text-gray-300 transition-all duration-300">
                 <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
                   <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
                   <path d="M9 18c-4.51 2-5-2-7-2"></path>
                 </svg>
               </a>
-              <a href="https://linkedin.com/in/aung-ko-ko-naing-603111358" aria-label="LinkedIn" className="w-8 h-8 flex items-center justify-center rounded-lg border border-blue-400/30 bg-white/5 hover:bg-blue-400/10 hover:text-blue-400 text-gray-300 transition-all duration-300">
+              <a href="https://linkedin.com/in/aung-ko-ko-naing-603111358" aria-label="LinkedIn" className="w-8 h-8 flex items-center justify-center rounded-lg border border-white/30 bg-white/5 hover:bg-white/15 hover:text-white text-gray-300 transition-all duration-300">
                 <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
                   <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                   <rect width="4" height="12" x="2" y="9"></rect>
                   <circle cx="4" cy="4" r="2"></circle>
                 </svg>
               </a>
-              <a href="https://t.me/ademon308" aria-label="Twitter" className="w-8 h-8 flex items-center justify-center rounded-lg border border-blue-400/30 bg-white/5 hover:bg-blue-400/10 hover:text-blue-400 text-gray-300 transition-all duration-300">
+              <a href="https://t.me/ademon308" aria-label="Twitter" className="w-8 h-8 flex items-center justify-center rounded-lg border border-white/30 bg-white/5 hover:bg-white/15 hover:text-white text-gray-300 transition-all duration-300">
                 <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
                   <path d="M22 2L11 13"></path>
                   <path d="M22 2l-7 20-4-9-9-4 20-7z"></path>
                 </svg>
               </a>
-              <a href="mailto:aungkokonaing118@gmail.com" aria-label="Email" className="w-8 h-8 flex items-center justify-center rounded-lg border border-blue-400/30 bg-white/5 hover:bg-blue-400/10 hover:text-blue-400 text-gray-300 transition-all duration-300">
+              <a href="mailto:aungkokonaing118@gmail.com" aria-label="Email" className="w-8 h-8 flex items-center justify-center rounded-lg border border-white/30 bg-white/5 hover:bg-white/15 hover:text-white text-gray-300 transition-all duration-300">
                 <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
                   <rect width="20" height="16" x="2" y="4" rx="2"></rect>
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
@@ -846,7 +841,7 @@ export default function Portfolio() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-semibold disabled:opacity-60 disabled:cursor-not-allowed"
+                className="w-full bg-white text-black px-6 py-3 rounded-xl hover:bg-gray-200 transition-all duration-300 font-semibold disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
