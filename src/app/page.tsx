@@ -14,7 +14,6 @@ import {
 import { FaJava } from 'react-icons/fa';
 import TextType from '@/components/TextType';
 import AnimatedBackground from '@/components/AnimatedBackground';
-import CustomCursor from '@/components/CustomCursor';
 import ScheduleMeetingModal from '@/components/ScheduleMeetingModal';
 import WhatImDoingNow from '@/components/WhatImDoingNow';
 import { projects } from '@/lib/projects';
@@ -280,7 +279,6 @@ export default function Portfolio() {
     <div className="min-h-screen bg-black text-white relative overflow-x-hidden">
       {/* Animated Background */}
       <AnimatedBackground />
-      <CustomCursor hidden={isModalInputFocused} />
 
       {/* Modern Header */}
       <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-black/90 backdrop-blur-md shadow-lg border-b border-white/10' : 'bg-transparent'

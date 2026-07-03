@@ -41,9 +41,9 @@ export const projects: Project[] = [
     slug: "students-listener",
     title: "Students Listener – English Skills Improvement Platform",
     emoji: "🎧",
-    tagline: "A simple and effective platform to help students improve English through listening.",
+    tagline: "Interactive Grade 6 English platform with lessons, games, and progress tracking.",
     description:
-      "Students Listener is a lightweight web platform that helps learners practice English listening skills through curated audio content, transcripts, and interactive exercises. Built with a clean and minimal UI, the project focuses on usability and accessibility for students of all levels.",
+      "Students Listener is a web-based English learning platform for Grade 6 students. It combines video lessons, interactive games, vocabulary practice, and an AI-assisted objectives chat to help learners improve listening, speaking, reading, and writing skills. The dashboard tracks lesson completion, game progress, and personalized insights so students can see what to practice next.",
     category: "Education · Web App",
     tech: ["HTML", "CSS", "JavaScript", "Python"],
     githubUrl: "https://github.com/ademon118/Student-Listener",
@@ -51,13 +51,22 @@ export const projects: Project[] = [
     role: "Front End Developer",
     timeline: "2 weeks",
     highlights: [
-      "Built a clean and distraction-free interface for students to practice English listening.",
-      "Implemented audio playback controls with a smooth UI and mobile-friendly layout.",
-      "Created listening modules to help students learn through repetition and guided practice.",
-      "Used Python for backend logic and content structuring.",
-      "Deployed lightweight, fast-loading static pages optimized for mobile and low-bandwidth users."
+      "Built an interactive dashboard with quiz checks, progress charts, and personalized learning insights.",
+      "Designed lesson pages with embedded video content and restaurant conversation practice.",
+      "Created a curriculum overview with 2 lessons, 5 games, and 50 vocabulary words.",
+      "Implemented an AI chat assistant for exploring learning objectives and study goals.",
+      "Deployed a fast, mobile-friendly site on Vercel optimized for classroom and home use."
     ],
-    images: ["/projects/students-listener-1.png", "/projects/students-listener-2.png"]
+    images: [
+      "/projects/student-demo.png",
+      "/projects/students-listener-hero.png",
+      "/projects/students-listener-dashboard.png",
+      "/projects/students-listener-landing.png",
+      "/projects/students-listener-curriculum.png",
+      "/projects/students-listener-lessons.png",
+      "/projects/students-listener-objectives.png",
+      "/projects/students-listener-wireframe.png"
+    ]
   },
   {
     slug: "water-intake-tracker",

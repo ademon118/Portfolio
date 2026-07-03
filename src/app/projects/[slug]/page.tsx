@@ -49,8 +49,8 @@ export default async function ProjectPage({
           )}
         </div>
 
-        <header className="mb-10 grid gap-8 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1.1fr)] items-start">
-          <div>
+        <header className="mb-10">
+          <div className="max-w-3xl">
             <div className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-gray-200 mb-4">
               <span className="text-lg" aria-hidden>
                 {project.emoji}
@@ -64,22 +64,22 @@ export default async function ProjectPage({
             <h1 className="text-3xl md:text-5xl font-bold mb-4">
               {project.title}
             </h1>
-            <p className="text-base md:text-lg text-gray-300 max-w-2xl">
+            <p className="text-base md:text-lg text-gray-300">
               {project.tagline}
             </p>
           </div>
 
           {heroImage && (
-            <div className="relative w-full max-w-md ml-auto">
-              <div className="relative aspect-[4/5] rounded-[32px] border border-white/10 bg-gradient-to-br from-white/10 to-white/[0.02] overflow-hidden shadow-[0_25px_60px_rgba(15,23,42,0.8)]">
+            <div className="mt-8 relative w-full">
+              <div className="relative w-full aspect-[2880/1624] rounded-[32px] border border-white/10 bg-black overflow-hidden shadow-[0_25px_60px_rgba(15,23,42,0.8)]">
                 <Image
                   src={heroImage}
                   alt={`${project.title} demo`}
                   fill
-                  className="object-cover"
+                  className="object-contain"
+                  sizes="(max-width: 1024px) 100vw, 1024px"
                   priority
                 />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
               </div>
             </div>
           )}
@@ -166,31 +166,30 @@ export default async function ProjectPage({
                 </a>
               </div>
             )}
-
-            {secondaryImages.length > 0 && (
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-4">
-                <h2 className="text-sm font-semibold text-gray-100 mb-2">
-                  Screenshots
-                </h2>
-                <div className="grid grid-cols-2 gap-3">
-                  {secondaryImages.map((src) => (
-                    <div
-                      key={src}
-                      className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-white/10 bg-black/40"
-                    >
-                      <Image
-                        src={src}
-                        alt={`${project.title} extra screenshot`}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
           </aside>
         </section>
+
+        {secondaryImages.length > 0 && (
+          <section className="mb-12">
+            <h2 className="text-lg font-semibold text-white mb-4">Screenshots</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {secondaryImages.map((src, index) => (
+                <div
+                  key={src}
+                  className="relative aspect-video overflow-hidden rounded-2xl border border-white/10 bg-black/40"
+                >
+                  <Image
+                    src={src}
+                    alt={`${project.title} screenshot ${index + 2}`}
+                    fill
+                    className="object-contain bg-black"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </main>
   );

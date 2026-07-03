@@ -5,9 +5,24 @@ import { useEffect, useState } from 'react';
 export default function CustomCursor({ hidden = false }: { hidden?: boolean }) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [isFormFocused, setIsFormFocused] = useState(false);
 
   useEffect(() => {
-    if (hidden) return;
+    const syncFormFocus = () => {
+      setIsFormFocused(document.body.classList.contains('contact-form-focus'));
+    };
+
+    syncFormFocus();
+    const observer = new MutationObserver(syncFormFocus);
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const isHidden = hidden || isFormFocused;
+
+  useEffect(() => {
+    if (isHidden) return;
 
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
@@ -27,9 +42,9 @@ export default function CustomCursor({ hidden = false }: { hidden?: boolean }) {
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.body.style.cursor = 'auto';
     };
-  }, [hidden]);
+  }, [isHidden]);
 
-  if (hidden) return null;
+  if (isHidden) return null;
 
   return (
     <div
