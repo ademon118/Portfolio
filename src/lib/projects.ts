@@ -12,31 +12,11 @@ export type Project = {
   timeline: string;
   highlights: string[];
   images?: string[]; // demo screenshots under /public
+  demoLayout?: 'mobile' | 'web'; // layout for the hero demo image
+  screenshotLayout?: 'mobile' | 'web'; // layout for the screenshots grid (defaults to demoLayout)
 };
 
 export const projects: Project[] = [
-  {
-    slug: "pos-system",
-    title: "Tea Shop POS System",
-    emoji: "🍵",
-    tagline: "Fast and reliable POS system built for tea shop operations.",
-    description:
-      "A web-based point-of-sale system designed for tea shops, supporting fast order entry, menu management, and real-time sales tracking. Built with PHP, MySQL, and JavaScript to deliver a smooth and responsive experience on any device.",
-    category: "POS System · Web App",
-    tech: ["PHP", "MySQL", "JavaScript", "HTML", "CSS"],
-    githubUrl: "https://github.com/ademon118/Tea-shop-pos-system",
-    liveUrl: "",
-    role: "Full-Stack Developer",
-    timeline: "4 weeks",
-    highlights: [
-      "Built fast order-taking screens optimized for daily shop workflows.",
-      "Designed normalized MySQL database for efficient POS operations.",
-      "Implemented role-based access and secure authentication.",
-      "Created clear sales reports with daily and monthly summaries.",
-      "Developed responsive UI that works on tablets and shop kiosks."
-    ],
-    images: ["/projects/pos-system-1.png", "/projects/pos-system-2.png"]
-  },
   {
     slug: "students-listener",
     title: "Students Listener – English Skills Improvement Platform",
@@ -57,6 +37,7 @@ export const projects: Project[] = [
       "Implemented an AI chat assistant for exploring learning objectives and study goals.",
       "Deployed a fast, mobile-friendly site on Vercel optimized for classroom and home use."
     ],
+    demoLayout: 'web',
     images: [
       "/projects/student-demo.png",
       "/projects/students-listener-hero.png",
@@ -86,18 +67,28 @@ export const projects: Project[] = [
       "Implemented state management using Riverpod for reliable and scalable app behavior.",
       "Added daily reminders and notifications to help users stay consistent with hydration goals.",
       "Tracked water intake with interactive charts and history for motivational feedback.",
-      "Optimized for both Android and iOS with fast performance and low battery usage."
+      "Built a rewards system with badges and achievements to keep users motivated."
     ],
-    images: ["/projects/water-intake-1.png", "/projects/water-intake-2.png"]
+    demoLayout: 'mobile',
+    images: [
+      "/projects/water-intaker-screenshots/IMG_2634.PNG",
+      "/projects/water-intaker-screenshots/IMG_2633.PNG",
+      "/projects/water-intaker-screenshots/IMG_2635.PNG",
+      "/projects/water-intaker-screenshots/IMG_2636.PNG",
+      "/projects/water-intaker-screenshots/IMG_2637.PNG",
+      "/projects/water-intaker-screenshots/IMG_2638.PNG",
+      "/projects/water-intaker-screenshots/IMG_2639.PNG",
+      "/projects/water-intaker-screenshots/IMG_2640.PNG"
+    ]
   },
   {
     slug: "anime-updates-app",
     title: "Anime Updates – Latest Anime Tracking Platform",
     emoji: "🎬",
-    tagline: "Stay up-to-date with the latest anime releases and news.",
+    tagline: "Backend API and scheduled jobs for fetching and organizing anime release data.",
     description:
-      "Anime Updates is a web application built with Java and Spring Framework that fetches, organizes, and displays the latest anime episodes, news, and release schedules. It uses a clean and responsive interface to provide anime fans with easy access to updates, personalized tracking, and notifications. The backend is powered by Spring Boot, REST APIs, and scheduled tasks to keep content current.",
-    category: "Entertainment · Web App",
+      "Anime Updates is a backend-focused web application built with Java and Spring Boot. It fetches, organizes, and serves the latest anime episodes, news, and release schedules through REST APIs. Scheduled tasks keep the data current, while MySQL stores anime details, user preferences, and tracking history.",
+    category: "Entertainment · Backend",
     tech: ["Java", "Spring Boot", "MySQL", "Thymeleaf", "REST API"],
     githubUrl: "https://github.com/ademon118/anime-updates",
     liveUrl: "",
@@ -106,11 +97,10 @@ export const projects: Project[] = [
     highlights: [
       "Implemented Spring Boot backend with REST APIs for fetching and managing anime data.",
       "Scheduled periodic updates using Spring Scheduler to keep anime information current.",
-      "Built a responsive frontend with Thymeleaf templates for easy browsing of episodes and news.",
-      "Integrated MySQL database for storing anime details, user preferences, and tracking history.",
-      "Provided personalized notifications and tracking features to enhance user engagement."
-    ],
-    images: ["/projects/anime-updates-1.png", "/projects/anime-updates-2.png"]
+      "Designed MySQL schema for anime details, user preferences, and tracking history.",
+      "Built service-layer logic for release schedules, episode tracking, and notifications.",
+      "Exposed structured API endpoints consumed by the frontend layer."
+    ]
   },
   {
     slug: "anime-updates-mobile",
@@ -132,7 +122,20 @@ export const projects: Project[] = [
       "Fetched real-time anime updates via APIs and displayed them in an organized interface.",
       "Added personalized tracking, episode reminders, and watch history to enhance engagement."
     ],
-    images: ["/projects/anime-updates-mobile-1.png", "/projects/anime-updates-mobile-2.png"]
+    demoLayout: 'web',
+    screenshotLayout: 'mobile',
+    images: [
+      "/projects/anime-updates-app-screenshots/image.png",
+      "/projects/anime-updates-app-screenshots/IMG_2641.jpg",
+      "/projects/anime-updates-app-screenshots/IMG_2642.jpg",
+      "/projects/anime-updates-app-screenshots/IMG_2643.jpg",
+      "/projects/anime-updates-app-screenshots/IMG_2644.jpg",
+      "/projects/anime-updates-app-screenshots/IMG_2645.jpg",
+      "/projects/anime-updates-app-screenshots/IMG_2646.jpg",
+      "/projects/anime-updates-app-screenshots/IMG_2647.jpg",
+      "/projects/anime-updates-app-screenshots/IMG_2648.jpg",
+      "/projects/anime-updates-app-screenshots/IMG_2649.jpg"
+    ]
   }
 
 ];

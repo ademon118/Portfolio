@@ -21,6 +21,9 @@ export default async function ProjectPage({
 
   const heroImage = project.images?.[0];
   const secondaryImages = project.images?.slice(1) ?? [];
+  const isMobileDemo = project.demoLayout === 'mobile';
+  const isMobileScreenshots =
+    (project.screenshotLayout ?? project.demoLayout) === 'mobile';
 
   return (
     <main className="min-h-screen bg-black text-white relative overflow-hidden">
@@ -49,8 +52,14 @@ export default async function ProjectPage({
           )}
         </div>
 
-        <header className="mb-10">
-          <div className="max-w-3xl">
+        <header
+          className={`mb-10 ${
+            isMobileDemo
+              ? 'grid gap-8 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] items-start'
+              : ''
+          }`}
+        >
+          <div className={isMobileDemo ? '' : 'max-w-3xl'}>
             <div className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-gray-200 mb-4">
               <span className="text-lg" aria-hidden>
                 {project.emoji}
@@ -69,8 +78,23 @@ export default async function ProjectPage({
             </p>
           </div>
 
-          {heroImage && (
-            <div className="mt-8 relative w-full">
+          {heroImage && isMobileDemo && (
+            <div className="relative w-full max-w-[260px] sm:max-w-[300px] justify-self-center md:justify-self-end md:ml-auto">
+              <div className="relative w-full aspect-[1179/2556] rounded-[32px] border border-white/10 bg-black overflow-hidden shadow-[0_25px_60px_rgba(15,23,42,0.8)]">
+                <Image
+                  src={heroImage}
+                  alt={`${project.title} demo`}
+                  fill
+                  className="object-contain"
+                  sizes="300px"
+                  priority
+                />
+              </div>
+            </div>
+          )}
+
+          {heroImage && !isMobileDemo && (
+            <div className="mt-8 relative w-full col-span-full">
               <div className="relative w-full aspect-[2880/1624] rounded-[32px] border border-white/10 bg-black overflow-hidden shadow-[0_25px_60px_rgba(15,23,42,0.8)]">
                 <Image
                   src={heroImage}
@@ -172,11 +196,13 @@ export default async function ProjectPage({
         {secondaryImages.length > 0 && (
           <section className="mb-12">
             <h2 className="text-lg font-semibold text-white mb-4">Screenshots</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className={`grid gap-4 ${isMobileScreenshots ? 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
               {secondaryImages.map((src, index) => (
                 <div
                   key={src}
-                  className="relative aspect-video overflow-hidden rounded-2xl border border-white/10 bg-black/40"
+                  className={`relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 ${
+                    isMobileScreenshots ? 'aspect-[1179/2556]' : 'aspect-video'
+                  }`}
                 >
                   <Image
                     src={src}
