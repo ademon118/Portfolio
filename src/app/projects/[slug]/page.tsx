@@ -30,7 +30,7 @@ export default async function ProjectPage({
       <div className="relative z-10 max-w-5xl mx-auto px-6 py-10 md:py-16">
         <div className="mb-8 flex items-center justify-between gap-4">
           <Link
-            href="/#case-studies"
+            href="/#projects"
             className="inline-flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors"
           >
             <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-white/20 bg-white/5">

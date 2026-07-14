@@ -16,12 +16,14 @@ import TextType from '@/components/TextType';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import ScheduleMeetingModal from '@/components/ScheduleMeetingModal';
 import WhatImDoingNow from '@/components/WhatImDoingNow';
+import LocalTimeClock from '@/components/LocalTimeClock';
 import { projects } from '@/lib/projects';
 
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
   const [showScheduleModal, setShowScheduleModal] = useState(false);
@@ -94,6 +96,24 @@ export default function Portfolio() {
 
     requestAnimationFrame(animate);
   }, [visible]);
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsMobileMenuOpen(false);
+    };
+    const onResize = () => {
+      if (window.innerWidth >= 768) setIsMobileMenuOpen(false);
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    window.addEventListener('resize', onResize);
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener('resize', onResize);
+    };
+  }, [isMobileMenuOpen]);
 
   useEffect(() => {
     if (!showPopup) return;
@@ -206,8 +226,11 @@ export default function Portfolio() {
     { category: "Tools & Others", items: ["Git", "Docker", "AWS", "CI/CD", "Agile"] }
   ];
 
+  const navItems = ['home', 'about', 'now', 'projects', 'education', 'contact'];
+
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
+    setIsMobileMenuOpen(false);
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -281,15 +304,15 @@ export default function Portfolio() {
       <AnimatedBackground />
 
       {/* Modern Header */}
-      <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-black/90 backdrop-blur-md shadow-lg border-b border-white/10' : 'bg-transparent'
+      <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled || isMobileMenuOpen ? 'bg-black/90 backdrop-blur-md shadow-lg border-b border-white/10' : 'bg-transparent'
         }`}>
         <nav className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="text-sm sm:text-lg md:text-2xl font-bold text-white truncate max-w-[60vw] sm:max-w-none">
               AUNG KO KO NAING
             </div>
-            <div className="hidden md:flex space-x-8">
-              {['home', 'about', 'now', 'case-studies', 'experience', 'education', 'contact'].map((item) => (
+            <div className="hidden md:flex items-center gap-8">
+              {navItems.map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item)}
@@ -299,11 +322,51 @@ export default function Portfolio() {
                   {item.replace('-', ' ')}
                 </button>
               ))}
+              <LocalTimeClock className="pl-2 border-l border-white/10 ml-1" />
             </div>
-            <div className="md:hidden">
-              <button className="text-gray-300">☰</button>
+            <div className="md:hidden flex items-center gap-2">
+              <LocalTimeClock compact />
+              <button
+                type="button"
+                onClick={() => setIsMobileMenuOpen((open) => !open)}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-gray-300 hover:text-white hover:bg-white/10 transition-colors"
+                aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+                aria-expanded={isMobileMenuOpen}
+              >
+                {isMobileMenuOpen ? (
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" d="M6 6l12 12M18 6L6 18" />
+                  </svg>
+                ) : (
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" d="M4 7h16M4 12h16M4 17h16" />
+                  </svg>
+                )}
+              </button>
             </div>
           </div>
+
+          {isMobileMenuOpen && (
+            <div className="md:hidden mt-4 pb-2 border-t border-white/10 pt-4 space-y-1">
+              {navItems.map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  onClick={() => scrollToSection(item)}
+                  className={`block w-full text-left px-3 py-2.5 rounded-lg capitalize transition-colors ${
+                    activeSection === item
+                      ? 'bg-white/10 text-white font-semibold'
+                      : 'text-gray-300 hover:bg-white/5 hover:text-white'
+                  }`}
+                >
+                  {item.replace('-', ' ')}
+                </button>
+              ))}
+              <div className="px-3 pt-3">
+                <LocalTimeClock />
+              </div>
+            </div>
+          )}
         </nav>
       </header>
 
@@ -327,7 +390,7 @@ export default function Portfolio() {
             />
             <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center animate-fade-in-up-delay-3 px-4">
               <button
-                onClick={() => scrollToSection('case-studies')}
+                onClick={() => scrollToSection('projects')}
                 className="w-full sm:w-auto bg-white text-black px-8 py-3 rounded-full hover:bg-gray-200 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-white/10 font-medium"
               >
                 View My Work
@@ -430,9 +493,9 @@ export default function Portfolio() {
 
       <WhatImDoingNow />
 
-      {/* Projects / Case Studies Section */}
+      {/* Projects Section */}
       <section
-        id="case-studies"
+        id="projects"
         className="py-12 sm:py-20 md:py-24 px-6 relative overflow-hidden z-10"
       >
         <div className="max-w-7xl mx-auto relative z-10">

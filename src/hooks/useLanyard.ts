@@ -10,9 +10,14 @@ import {
 
 export type ConnectionState = 'connecting' | 'connected' | 'reconnecting' | 'disconnected';
 
+const INITIAL_BACKOFF_MS = 1000;
+const MAX_BACKOFF_MS = 30000;
+
 export function useLanyard(userId: string = DISCORD_USER_ID) {
   const [presence, setPresence] = useState<LanyardPresence | null>(null);
   const [connectionState, setConnectionState] = useState<ConnectionState>('connecting');
+  const [lastSeenAt, setLastSeenAt] = useState<number | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const presenceRef = useRef<LanyardPresence | null>(null);
 
   useEffect(() => {
@@ -27,6 +32,7 @@ export function useLanyard(userId: string = DISCORD_USER_ID) {
     let isUnmounted = false;
     let intentionallyClosed = false;
     let tabHidden = typeof document !== 'undefined' ? document.hidden : false;
+    let backoffMs = INITIAL_BACKOFF_MS;
 
     const clearHeartbeat = () => {
       if (heartbeatTimer) {
@@ -52,11 +58,24 @@ export function useLanyard(userId: string = DISCORD_USER_ID) {
     const applyPresence = (next: LanyardPresence | null) => {
       if (!next || isUnmounted) return;
       setPresence(next);
+      setLastSeenAt(Date.now());
+      setErrorMessage(null);
+    };
+
+    const scheduleReconnect = () => {
+      clearReconnect();
+      const delay = backoffMs;
+      backoffMs = Math.min(MAX_BACKOFF_MS, backoffMs * 2);
+      reconnectTimer = setTimeout(connect, delay);
     };
 
     const fetchRestFallback = async () => {
       const data = await fetchLanyardPresence(userId);
-      applyPresence(data);
+      if (data) {
+        applyPresence(data);
+      } else if (!presenceRef.current) {
+        setErrorMessage('Could not reach Discord presence. Retrying…');
+      }
       return data;
     };
 
@@ -94,14 +113,16 @@ export function useLanyard(userId: string = DISCORD_USER_ID) {
         ws = new WebSocket(LANYARD_WS_URL);
       } catch {
         setConnectionState(presenceRef.current ? 'reconnecting' : 'disconnected');
+        if (!presenceRef.current) {
+          setErrorMessage('Live connection failed. Using backup feed…');
+        }
         startRestPolling();
-        reconnectTimer = setTimeout(connect, 5000);
+        scheduleReconnect();
         return;
       }
 
       ws.onopen = () => {
         if (isUnmounted) return;
-        // Stay "connecting/reconnecting" until INIT_STATE arrives
       };
 
       ws.onmessage = (event) => {
@@ -137,6 +158,7 @@ export function useLanyard(userId: string = DISCORD_USER_ID) {
         if (message.op === 0 && message.t === 'INIT_STATE') {
           applyPresence(message.d as LanyardPresence);
           setConnectionState('connected');
+          backoffMs = INITIAL_BACKOFF_MS;
           clearRestPoll();
           return;
         }
@@ -144,6 +166,7 @@ export function useLanyard(userId: string = DISCORD_USER_ID) {
         if (message.op === 0 && message.t === 'PRESENCE_UPDATE') {
           applyPresence(message.d as LanyardPresence);
           setConnectionState('connected');
+          backoffMs = INITIAL_BACKOFF_MS;
         }
       };
 
@@ -153,8 +176,11 @@ export function useLanyard(userId: string = DISCORD_USER_ID) {
         if (isUnmounted || intentionallyClosed || tabHidden) return;
 
         setConnectionState(presenceRef.current ? 'reconnecting' : 'disconnected');
+        if (!presenceRef.current) {
+          setErrorMessage('Disconnected from live presence. Reconnecting…');
+        }
         startRestPolling();
-        reconnectTimer = setTimeout(connect, 5000);
+        scheduleReconnect();
       };
 
       ws.onerror = () => {
@@ -172,13 +198,12 @@ export function useLanyard(userId: string = DISCORD_USER_ID) {
         return;
       }
 
-      // Tab visible again — resume live connection
+      backoffMs = INITIAL_BACKOFF_MS;
       void fetchRestFallback().then(() => {
         if (!isUnmounted) connect();
       });
     };
 
-    // Initial REST hydrate for fast first paint, then WS
     void fetchRestFallback().finally(() => {
       if (!isUnmounted && !tabHidden) connect();
     });
@@ -193,5 +218,5 @@ export function useLanyard(userId: string = DISCORD_USER_ID) {
     };
   }, [userId]);
 
-  return { presence, connectionState };
+  return { presence, connectionState, lastSeenAt, errorMessage };
 }

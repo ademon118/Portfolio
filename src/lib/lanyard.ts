@@ -1,8 +1,23 @@
 export const LANYARD_WS_URL = 'wss://api.lanyard.rest/socket';
 export const LANYARD_REST_URL = 'https://api.lanyard.rest/v1/users';
 export const DISCORD_USER_ID = '794148756290928653';
+export const DISCORD_PROFILE_URL = `https://discord.com/users/${DISCORD_USER_ID}`;
+export const LANYARD_INVITE_URL = 'https://discord.gg/UrXF2cfJ7F';
 
 export type DiscordStatus = 'online' | 'idle' | 'dnd' | 'offline';
+
+export interface LanyardAvatarDecoration {
+  asset: string;
+  sku_id?: string;
+  expires_at?: number | null;
+}
+
+export interface LanyardPrimaryGuild {
+  identity_guild_id: string | null;
+  identity_enabled: boolean | null;
+  tag: string | null;
+  badge: string | null;
+}
 
 export interface LanyardDiscordUser {
   id: string;
@@ -11,6 +26,8 @@ export interface LanyardDiscordUser {
   global_name: string | null;
   avatar: string | null;
   discriminator: string;
+  avatar_decoration_data?: LanyardAvatarDecoration | null;
+  primary_guild?: LanyardPrimaryGuild | null;
 }
 
 export interface LanyardActivityAssets {
@@ -94,11 +111,6 @@ export function isCodingActivity(activity: LanyardActivity): boolean {
   );
 }
 
-/** Non-Spotify activities suitable for activity cards (includes custom status). */
-export function getDisplayableActivities(activities: LanyardActivity[]): LanyardActivity[] {
-  return activities.filter((activity) => !isSpotifyActivity(activity));
-}
-
 export function getCustomStatus(activities: LanyardActivity[]): LanyardActivity | null {
   return activities.find(isCustomStatus) ?? null;
 }
@@ -115,6 +127,20 @@ export function getCodingWorkspace(activity: LanyardActivity): string | null {
   return raw.replace(/^Workspace:\s*/i, '').trim() || null;
 }
 
+/** Map a VS Code workspace name to a portfolio route when possible. */
+export function getCodingWorkspaceHref(workspace: string | null): string | null {
+  if (!workspace) return null;
+  const value = workspace.toLowerCase().trim();
+
+  if (value.includes('portfolio')) return '/#projects';
+  if (value.includes('student')) return '/projects/students-listener';
+  if (value.includes('water')) return '/projects/water-intake-tracker';
+  if (value.includes('anime') && value.includes('mobile')) return '/projects/anime-updates-mobile';
+  if (value.includes('anime')) return '/projects/anime-updates-app';
+
+  return null;
+}
+
 export function getDiscordAvatarUrl(user: LanyardDiscordUser): string {
   if (user.avatar) {
     const isAnimated = user.avatar.startsWith('a_');
@@ -125,6 +151,24 @@ export function getDiscordAvatarUrl(user: LanyardDiscordUser): string {
   return `https://cdn.discordapp.com/embed/avatars/${defaultIndex}.png`;
 }
 
+export function getAvatarDecorationUrl(user: LanyardDiscordUser): string | null {
+  const asset = user.avatar_decoration_data?.asset;
+  if (!asset) return null;
+  return `https://cdn.discordapp.com/avatar-decoration-presets/${asset}.png?size=160&passthrough=true`;
+}
+
+export function getClanBadgeUrl(user: LanyardDiscordUser): string | null {
+  const guild = user.primary_guild;
+  if (!guild?.identity_enabled || !guild.identity_guild_id || !guild.badge) return null;
+  return `https://cdn.discordapp.com/clan-badges/${guild.identity_guild_id}/${guild.badge}.png?size=16`;
+}
+
+export function getClanTag(user: LanyardDiscordUser): string | null {
+  const guild = user.primary_guild;
+  if (!guild?.identity_enabled || !guild.tag) return null;
+  return guild.tag;
+}
+
 export function getDisplayName(user: LanyardDiscordUser): string {
   return user.display_name || user.global_name || user.username;
 }
@@ -132,13 +176,13 @@ export function getDisplayName(user: LanyardDiscordUser): string {
 export function getStatusColor(status: DiscordStatus): string {
   switch (status) {
     case 'online':
-      return '#22c55e';
+      return '#23a55a';
     case 'idle':
-      return '#eab308';
+      return '#f0b232';
     case 'dnd':
-      return '#ef4444';
+      return '#f23f43';
     default:
-      return '#6b7280';
+      return '#80848e';
   }
 }
 
@@ -212,6 +256,17 @@ export function formatClock(ms: number): string {
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
   return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
+
+export function formatRelativeTime(fromMs: number, nowMs: number = Date.now()): string {
+  const seconds = Math.max(0, Math.floor((nowMs - fromMs) / 1000));
+  if (seconds < 60) return 'just now';
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `${minutes}m ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  return `${days}d ago`;
 }
 
 export function getSpotifyProgress(
