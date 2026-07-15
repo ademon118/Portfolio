@@ -179,7 +179,7 @@ function ActivityCard({ activity, now }: { activity: LanyardActivity; now: numbe
         )}
         <div className="min-w-0 flex-1">
           <p className="text-xs text-blue-300 uppercase tracking-wider mb-1">
-            Coding{elapsed ? ` · ${elapsed}` : ''}
+            Working on{elapsed ? ` · ${elapsed}` : ''}
           </p>
           <p className="text-white font-medium break-words">
             {workspace ?? 'Working on something'}

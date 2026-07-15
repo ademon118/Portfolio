@@ -175,10 +175,12 @@ export default async function ProjectPage({
             {project.liveUrl && project.liveUrl.trim().length > 0 && (
               <div className="rounded-3xl border border-emerald-400/40 bg-emerald-500/10 p-5">
                 <h2 className="text-sm font-semibold text-emerald-100 mb-2">
-                  Live demo
+                  {project.liveLabel ?? "Live demo"}
                 </h2>
                 <p className="text-xs text-emerald-100/80 mb-3">
-                  Explore the running version of this project in your browser.
+                  {project.liveLabel === "Download"
+                    ? "Download the Android APK to try this app on your device."
+                    : "Explore the running version of this project in your browser."}
                 </p>
                 <a
                   href={project.liveUrl}
@@ -186,7 +188,11 @@ export default async function ProjectPage({
                   rel="noreferrer noopener"
                   className="inline-flex items-center gap-2 rounded-full border border-emerald-300/60 bg-emerald-500/20 px-4 py-1.5 text-xs text-emerald-50 hover:bg-emerald-400/40 transition-colors"
                 >
-                  <span>Open live site</span>
+                  <span>
+                    {project.liveLabel === "Download"
+                      ? "Download APK"
+                      : "Open live site"}
+                  </span>
                 </a>
               </div>
             )}

@@ -512,14 +512,14 @@ export default function Portfolio() {
                 and ship mobile experiences from idea to production.
               </p>
             </div>
-            <div className="flex gap-3 flex-wrap">
+            {/* <div className="flex gap-3 flex-wrap">
               <span className="px-3 py-1 rounded-full border border-blue-400/30 text-xs text-blue-200/90 bg-blue-500/10">
                 Mobile first
               </span>
               <span className="px-3 py-1 rounded-full border border-purple-400/30 text-xs text-purple-200/90 bg-purple-500/10">
                 Real-world apps
               </span>
-            </div>
+            </div> */}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-8">
@@ -591,7 +591,7 @@ export default function Portfolio() {
                         onClick={(e) => e.stopPropagation()}
                         className="pointer-events-auto inline-flex items-center gap-1.5 rounded-full border border-white/40 bg-white/5 px-3 py-1.5 text-xs text-gray-200 hover:bg-white/15 hover:border-white/70 transition-colors"
                       >
-                        <span>Live demo</span>
+                        <span>{project.liveLabel ?? "Live demo"}</span>
                       </a>
                     )}
                   </div>
@@ -745,19 +745,19 @@ export default function Portfolio() {
 
           {/* Main Headline */}
           <div className="mb-4 sm:mb-8">
-            <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-bold mb-3 sm:mb-8 leading-tight text-white">
-              Step into the<br className="hidden sm:block" />
-              <span className="sm:hidden"> </span>
-              future of design
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-8 leading-tight text-white">
+              Let&apos;s build something together.
+              <br />
+              I&apos;d love to hear from you.
             </h2>
           </div>
 
           {/* Subtitle */}
           <p className="text-base sm:text-xl md:text-2xl text-gray-400 mb-5 sm:mb-8 max-w-4xl mx-auto leading-relaxed px-2">
-            Join thousands of developers and teams using modern technologies
+            Have an idea, a project, or just want to say hi?
             <span className="hidden sm:inline"><br /></span>
             <span className="sm:hidden"> </span>
-            to turn ideas into high-performing mobile applications, fast.
+            I&apos;m always open to a conversation.
           </p>
 
           {/* Call-to-Action Buttons */}
