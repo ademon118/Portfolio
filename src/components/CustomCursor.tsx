@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function CustomCursor({ hidden = false }: { hidden?: boolean }) {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const cursorRef = useRef<HTMLDivElement>(null);
   const [isHovering, setIsHovering] = useState(false);
   const [isFormFocused, setIsFormFocused] = useState(false);
 
@@ -25,13 +25,16 @@ export default function CustomCursor({ hidden = false }: { hidden?: boolean }) {
     if (isHidden) return;
 
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      const el = cursorRef.current;
+      if (!el) return;
+      el.style.left = `${e.clientX}px`;
+      el.style.top = `${e.clientY}px`;
     };
 
     const handleMouseEnter = () => setIsHovering(true);
     const handleMouseLeave = () => setIsHovering(false);
 
-    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mousemove', handleMouseMove, { passive: true });
     document.addEventListener('mouseenter', handleMouseEnter);
     document.addEventListener('mouseleave', handleMouseLeave);
     document.body.style.cursor = 'none';
@@ -48,10 +51,11 @@ export default function CustomCursor({ hidden = false }: { hidden?: boolean }) {
 
   return (
     <div
+      ref={cursorRef}
       className={`custom-cursor ${isHovering ? 'opacity-100' : 'opacity-0'}`}
       style={{
-        left: mousePosition.x,
-        top: mousePosition.y,
+        left: 0,
+        top: 0,
         transform: 'translate(-50%, -50%)',
       }}
     >

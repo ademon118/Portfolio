@@ -43,7 +43,7 @@ export const projects: Project[] = [
     demoLayout: 'web',
     screenshotLayout: 'mobile',
     images: [
-      "/projects/anime-updates-app-screenshots/image.png",
+      "/projects/anime-updates-app-screenshots/image.webp",
       "/projects/anime-updates-app-screenshots/IMG_2641.jpg",
       "/projects/anime-updates-app-screenshots/IMG_2642.jpg",
       "/projects/anime-updates-app-screenshots/IMG_2643.jpg",
@@ -130,7 +130,7 @@ export const projects: Project[] = [
     ],
     demoLayout: 'web',
     images: [
-      "/projects/student-demo.png",
+      "/projects/student-demo.webp",
       "/projects/students-listener-hero.png",
       "/projects/students-listener-dashboard.png",
       "/projects/students-listener-landing.png",

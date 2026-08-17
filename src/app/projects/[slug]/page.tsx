@@ -87,6 +87,7 @@ export default async function ProjectPage({
                   fill
                   className="object-contain"
                   sizes="300px"
+                  quality={75}
                   priority
                 />
               </div>
@@ -102,6 +103,7 @@ export default async function ProjectPage({
                   fill
                   className="object-contain"
                   sizes="(max-width: 1024px) 100vw, 1024px"
+                  quality={75}
                   priority
                 />
               </div>
@@ -215,7 +217,9 @@ export default async function ProjectPage({
                     alt={`${project.title} screenshot ${index + 2}`}
                     fill
                     className="object-contain bg-black"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    quality={70}
+                    loading="lazy"
                   />
                 </div>
               ))}
