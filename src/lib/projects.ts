@@ -10,6 +10,17 @@ export type Project = {
   liveUrl?: string;
   /** Button label for liveUrl. Defaults to "Live demo". Use "Download" for APK links. */
   liveLabel?: string;
+  /** App Store / Google Play links for published mobile apps */
+  storeLinks?: {
+    ios?: string;
+    android?: string;
+  };
+  /** Demo login for reviewers or portfolio visitors */
+  demoAccount?: {
+    username: string;
+    password: string;
+    note?: string;
+  };
   role: string;
   timeline: string;
   highlights: string[];
@@ -19,6 +30,47 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  {
+    slug: "edunburgh-elevator-service",
+    title: "Edunburgh Elevator Service - Business App",
+    emoji: "🛗",
+    tagline: "Official customer app to request elevator service, track requests, and manage invoices.",
+    description:
+      "Edunburgh Elevator Service is the official Flutter app for Edunburgh Elevator Myanmar customers. Residents and building managers can sign in securely, submit maintenance requests with photos, follow service orders from submission to completion, view engineer replies, rate completed work, manage invoices, and upload payment proof — all from one place. The app supports English and Myanmar, light and dark mode, and push notifications via Firebase Cloud Messaging for request updates, engineer replies, and payment verification.",
+    category: "Business · Mobile App",
+    tech: ["Flutter", "Dart", "FCM", "REST API", "Firebase"],
+    githubUrl: "",
+    storeLinks: {
+      ios: "https://apps.apple.com/app/id6777947287",
+      android: "https://play.google.com/store/apps/details?id=com.edunburgh.elevator_service",
+    },
+    demoAccount: {
+      username: "tester",
+      password: "tester",
+      note: "Install the app from the App Store or Google Play, then sign in with these credentials to explore the full experience.",
+    },
+    role: "Mobile Developer",
+    timeline: "3 months",
+    highlights: [
+      "Shipped to the App Store and Google Play for Edunburgh Elevator Myanmar customers.",
+      "Built service request flows with issue types, priority levels, and photo attachments.",
+      "Implemented request tracking with timelines, engineer replies, ratings, and linked invoices.",
+      "Added invoice management with outstanding balances and payment proof uploads.",
+      "Integrated FCM push notifications for request status, replies, and payment updates.",
+      "Delivered bilingual UI (English & Myanmar) with profile, contracts, and 24/7 support access.",
+    ],
+    demoLayout: "mobile",
+    screenshotLayout: "mobile",
+    images: [
+      "/projects/edunburgh-elevator-screenshots/home.png",
+      "/projects/edunburgh-elevator-screenshots/login.png",
+      "/projects/edunburgh-elevator-screenshots/requests.png",
+      "/projects/edunburgh-elevator-screenshots/new-request.png",
+      "/projects/edunburgh-elevator-screenshots/request-detail.png",
+      "/projects/edunburgh-elevator-screenshots/invoices.png",
+      "/projects/edunburgh-elevator-screenshots/profile.png",
+    ],
+  },
   {
     slug: "anime-updates-mobile",
     title: "Anime Updates - Anime Streaming App",

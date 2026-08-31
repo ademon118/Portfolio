@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import ProjectStoreLinks from '@/components/ProjectStoreLinks';
 import { projects } from '@/lib/projects';
 
 export default function ProjectsSection() {
@@ -82,6 +83,13 @@ export default function ProjectsSection() {
                       <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
                       <span>View code</span>
                     </a>
+                  )}
+                  {project.storeLinks && (
+                    <ProjectStoreLinks
+                      iosUrl={project.storeLinks.ios}
+                      androidUrl={project.storeLinks.android}
+                      variant="card"
+                    />
                   )}
                   {project.liveUrl && project.liveUrl.trim().length > 0 && (
                     <a

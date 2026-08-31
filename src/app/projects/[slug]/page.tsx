@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import ProjectStoreLinks from '@/components/ProjectStoreLinks';
 import { getProjectBySlug, projects } from '@/lib/projects';
 
 export function generateStaticParams() {
@@ -122,15 +123,18 @@ export default async function ProjectPage({
               </p>
             </div>
 
-            <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-blue-500/10 to-purple-500/10 p-5">
-              <h2 className="text-sm font-semibold text-gray-100 mb-3">
+            <div className="rounded-3xl border border-blue-400/20 bg-gradient-to-br from-blue-500/10 to-purple-500/10 p-5">
+              <h2 className="text-sm font-semibold text-blue-100 mb-3">
                 Highlights
               </h2>
-              <ul className="space-y-2 text-sm text-gray-100">
+              <ul className="space-y-2.5">
                 {project.highlights.map((item) => (
-                  <li key={item} className="flex items-start gap-2">
-                    <span className="mt-1 h-1.5 w-1.5 rounded-full bg-blue-400" />
-                    <span>{item}</span>
+                  <li key={item} className="flex gap-2.5 text-sm leading-relaxed text-blue-100/90">
+                    <span
+                      className="mt-[0.55rem] h-1.5 w-1.5 shrink-0 rounded-full bg-blue-400"
+                      aria-hidden
+                    />
+                    <span className="min-w-0 flex-1">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -173,6 +177,43 @@ export default async function ProjectPage({
                 </div>
               </dl>
             </div>
+
+            {project.storeLinks && (project.storeLinks.ios || project.storeLinks.android) && (
+              <div className="rounded-3xl border border-emerald-400/40 bg-emerald-500/10 p-5">
+                <h2 className="text-sm font-semibold text-emerald-100 mb-2">
+                  Get the app
+                </h2>
+                <p className="text-xs text-emerald-100/80 mb-3">
+                  Available on the App Store and Google Play for Edunburgh Elevator customers.
+                </p>
+                <ProjectStoreLinks
+                  iosUrl={project.storeLinks.ios}
+                  androidUrl={project.storeLinks.android}
+                  variant="detail"
+                />
+              </div>
+            )}
+
+            {project.demoAccount && (
+              <div className="rounded-3xl border border-blue-400/40 bg-blue-500/10 p-5">
+                <h2 className="text-sm font-semibold text-blue-100 mb-2">
+                  Test account
+                </h2>
+                {project.demoAccount.note && (
+                  <p className="text-xs text-blue-100/80 mb-3">{project.demoAccount.note}</p>
+                )}
+                <dl className="space-y-2 text-xs">
+                  <div className="flex justify-between gap-4">
+                    <dt className="text-blue-200/70">Username</dt>
+                    <dd className="font-mono text-blue-50">{project.demoAccount.username}</dd>
+                  </div>
+                  <div className="flex justify-between gap-4">
+                    <dt className="text-blue-200/70">Password</dt>
+                    <dd className="font-mono text-blue-50">{project.demoAccount.password}</dd>
+                  </div>
+                </dl>
+              </div>
+            )}
 
             {project.liveUrl && project.liveUrl.trim().length > 0 && (
               <div className="rounded-3xl border border-emerald-400/40 bg-emerald-500/10 p-5">
