@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { MapPinnedIcon, MapPinnedIconHandle } from '@/components/ui/MapPinnedIcon';
+import ScrollReveal from '@/components/ScrollReveal';
 
 const STATS = [
   { label: 'Year of Experience', value: 2, suffix: '' },
@@ -49,7 +50,7 @@ export default function AboutSection() {
     <section id="about" className="relative overflow-hidden z-10 px-6 py-10 sm:py-16 md:py-20">
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="flex flex-col lg:flex-row lg:items-center gap-6 sm:gap-10 lg:gap-16">
-          <div className="space-y-4 sm:space-y-8 flex-1 min-w-0 order-2 lg:order-1">
+          <ScrollReveal className="space-y-4 sm:space-y-8 flex-1 min-w-0 order-2 lg:order-1">
             <div className="space-y-3 sm:space-y-6">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-8 text-white">
                 About Me
@@ -77,15 +78,18 @@ export default function AboutSection() {
                 }}
                 onMouseEnter={() => iconRef.current?.startAnimation()}
                 onMouseLeave={() => iconRef.current?.stopAnimation()}
-                className="group relative px-6 sm:px-8 py-3 rounded-full mt-2 sm:mt-4 overflow-hidden transition-all duration-300 inline-flex items-center gap-2 font-medium shadow-lg shadow-white/10 text-sm sm:text-base bg-white text-black hover:bg-gray-200"
+                className="group relative px-6 sm:px-8 py-3 rounded-full mt-2 sm:mt-4 overflow-hidden transition-all duration-300 inline-flex items-center gap-2 font-medium shadow-lg shadow-white/10 text-sm sm:text-base bg-white text-black hover:bg-gray-200 hover:-translate-y-0.5"
               >
                 <MapPinnedIcon ref={iconRef} size={20} duration={1} className="relative z-10" />
                 <span className="relative z-10">Yangon, Myanmar</span>
               </button>
             </div>
-          </div>
+          </ScrollReveal>
 
-          <div className="relative rounded-[16px] border border-white/20 p-3 sm:p-4 w-full max-w-xs sm:max-w-sm mx-auto lg:mx-0 lg:max-w-md shrink-0 order-1 lg:order-2">
+          <ScrollReveal
+            delayMs={120}
+            className="relative rounded-[16px] border border-white/20 p-3 sm:p-4 w-full max-w-xs sm:max-w-sm mx-auto lg:mx-0 lg:max-w-md shrink-0 order-1 lg:order-2 transition-transform duration-500 hover:-translate-y-1"
+          >
             <Image
               src="/profile.png"
               alt="Profile"
@@ -94,7 +98,7 @@ export default function AboutSection() {
               className="w-full h-auto rounded-lg object-cover"
               sizes="(max-width: 1024px) 20rem, 28rem"
             />
-          </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>
