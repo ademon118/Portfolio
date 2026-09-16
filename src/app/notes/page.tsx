@@ -39,6 +39,7 @@ export default function NotesPage() {
   return (
     <main className={`notes-page ${fraunces.variable} ${sourceSerif.variable} ${caveat.variable}`}>
       <div className="paper-sheet">
+        {/* Torn kraft strip pinned to the top of the full page paper */}
         <div className="kraft kraft--top" aria-hidden>
           <div className="kraft-news kraft-news--left" />
           <div className="kraft-news kraft-news--right" />
@@ -78,6 +79,7 @@ export default function NotesPage() {
         <div className="lined-paper">
           <div className="paper-crease" aria-hidden />
 
+          {/* Icons randomly attached across the paper */}
           <DecoAsset
             src="/notes/parchment-scroll.png"
             className="deco deco-parchment-top"
@@ -93,6 +95,27 @@ export default function NotesPage() {
             height={122}
           />
           <InkPen className="deco deco-pen" />
+          <DecoAsset
+            src="/notes/parchment-banner.png"
+            className="deco deco-parchment-float"
+            width={160}
+            height={60}
+          />
+          <ManIcon className="deco deco-man-paper" />
+          <Polaroid className="deco deco-polaroid-paper" />
+
+          <svg className="deco deco-pin deco-pin--1" viewBox="0 0 24 24" aria-hidden>
+            <circle cx="12" cy="12" r="7" fill="#c45c5c" opacity="0.85" />
+            <circle cx="12" cy="12" r="3" fill="#f7f3e8" opacity="0.5" />
+          </svg>
+          <svg className="deco deco-pin deco-pin--2" viewBox="0 0 24 24" aria-hidden>
+            <circle cx="12" cy="12" r="7" fill="#3d6b8a" opacity="0.8" />
+            <circle cx="12" cy="12" r="3" fill="#f7f3e8" opacity="0.45" />
+          </svg>
+          <svg className="deco deco-pin deco-pin--3" viewBox="0 0 24 24" aria-hidden>
+            <circle cx="12" cy="12" r="7" fill="#8a6b3d" opacity="0.85" />
+            <circle cx="12" cy="12" r="3" fill="#f7f3e8" opacity="0.45" />
+          </svg>
 
           <Link href="/" className="paper-back">
             ← back to portfolio
@@ -106,13 +129,37 @@ export default function NotesPage() {
           </div>
 
           <svg className="deco deco-waves" viewBox="0 0 400 80" preserveAspectRatio="none" aria-hidden>
-            <path d="M0 40 Q50 10 100 40 T200 40 T300 40 T400 40" stroke="#8b6b4a" strokeWidth="1.2" fill="none" opacity="0.45" />
-            <path d="M0 52 Q50 22 100 52 T200 52 T300 52 T400 52" stroke="#8b6b4a" strokeWidth="1" fill="none" opacity="0.3" />
-            <path d="M0 28 Q50 0 100 28 T200 28 T300 28 T400 28" stroke="#8b6b4a" strokeWidth="0.9" fill="none" opacity="0.25" />
+            <path
+              d="M0 40 Q50 10 100 40 T200 40 T300 40 T400 40"
+              stroke="#8b6b4a"
+              strokeWidth="1.2"
+              fill="none"
+              opacity="0.45"
+            />
+            <path
+              d="M0 52 Q50 22 100 52 T200 52 T300 52 T400 52"
+              stroke="#8b6b4a"
+              strokeWidth="1"
+              fill="none"
+              opacity="0.3"
+            />
+            <path
+              d="M0 28 Q50 0 100 28 T200 28 T300 28 T400 28"
+              stroke="#8b6b4a"
+              strokeWidth="0.9"
+              fill="none"
+              opacity="0.25"
+            />
           </svg>
 
           <svg className="deco deco-scribble" viewBox="0 0 60 40" aria-hidden>
-            <path d="M5 20c5-12 12 12 18 0s12 12 18 0 10-10 14 5" stroke="#1e3a5f" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+            <path
+              d="M5 20c5-12 12 12 18 0s12 12 18 0 10-10 14 5"
+              stroke="#1e3a5f"
+              strokeWidth="1.5"
+              fill="none"
+              strokeLinecap="round"
+            />
             <circle cx="48" cy="12" r="3" stroke="#1e3a5f" strokeWidth="1.2" fill="none" />
           </svg>
 
@@ -134,7 +181,7 @@ export default function NotesPage() {
           {notes.map((note) => (
             <article
               key={note.id}
-              className={`written-note written-note--${note.style.ink ?? 'black'} written-note--${note.style.size ?? 'md'}`}
+              className={`written-note written-note--${note.style.ink ?? 'black'} written-note--${note.style.size ?? 'md'} written-note--tape-${note.style.tape ?? 'clear'}`}
               style={{
                 top: note.style.top,
                 left: note.style.left,
@@ -143,6 +190,7 @@ export default function NotesPage() {
                 transform: `rotate(${note.style.rotate}deg)`,
               }}
             >
+              <span className="note-tape" aria-hidden />
               <span className="written-note-tag">
                 {note.kind === 'learning' ? '✦ learning' : '✎ behind the scenes'} · {note.date}
               </span>
@@ -155,9 +203,10 @@ export default function NotesPage() {
             {notes.map((note) => (
               <article
                 key={`m-${note.id}`}
-                className={`written-note written-note--${note.style.ink ?? 'black'}`}
-                style={{ transform: `rotate(${note.style.rotate * 0.4}deg)` }}
+                className={`written-note written-note--${note.style.ink ?? 'black'} written-note--tape-${note.style.tape ?? 'clear'}`}
+                style={{ transform: `rotate(${note.style.rotate * 0.55}deg)` }}
               >
+                <span className="note-tape" aria-hidden />
                 <span className="written-note-tag">
                   {note.kind === 'learning' ? '✦ learning' : '✎ behind the scenes'} · {note.date}
                 </span>
@@ -168,41 +217,25 @@ export default function NotesPage() {
           </div>
         </div>
 
-        <div className="kraft kraft--bottom">
+        <footer className="paper-footer kraft kraft--bottom">
           <DecoAsset
             src="/notes/stacked-books.png"
             className="deco deco-stacked-books"
             width={140}
             height={135}
           />
-          <DecoAsset
-            src="/notes/parchment-banner.png"
-            className="deco deco-parchment-bottom"
-            width={180}
-            height={67}
-          />
-          <BookScrap className="deco deco-scrap-bottom" />
-
-          <div className="kraft-fields">
+          <div className="paper-footer-fields">
             <p>
               <span>Name:</span> Aung Ko Ko Naing
             </p>
             <p>
               <span>Focus:</span> Flutter · Mobile · Shipping
             </p>
-            <p>
-              <span>Submitted to:</span> whoever is reading this page :)
-            </p>
             <Link href="/#projects" className="kraft-projects-link">
               see shipped projects →
             </Link>
           </div>
-          <svg className="deco deco-butterfly" viewBox="0 0 64 48" fill="none" aria-hidden>
-            <circle cx="32" cy="24" r="10" stroke="#2a2a2a" strokeWidth="1.3" />
-            <path d="M32 14v20M22 24h20" stroke="#2a2a2a" strokeWidth="1.2" />
-            <path d="M25 17l14 14M39 17L25 31" stroke="#2a2a2a" strokeWidth="1" />
-          </svg>
-        </div>
+        </footer>
       </div>
     </main>
   );

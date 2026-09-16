@@ -1,6 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const CustomCursor = dynamic(() => import('@/components/CustomCursor'), {
@@ -8,6 +9,7 @@ const CustomCursor = dynamic(() => import('@/components/CustomCursor'), {
 });
 
 export default function CursorProvider() {
+  const pathname = usePathname();
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
@@ -17,5 +19,7 @@ export default function CursorProvider() {
 
   if (!enabled) return null;
 
-  return <CustomCursor />;
+  const variant = pathname?.startsWith('/notes') ? 'pen' : 'default';
+
+  return <CustomCursor variant={variant} />;
 }
