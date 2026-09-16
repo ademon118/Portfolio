@@ -1,0 +1,753 @@
+.notes-page {
+  --ink: #1a1a1a;
+  --ink-blue: #1e3a5f;
+  --ink-brown: #5c3d24;
+  --lined: #f7f3e8;
+  --line: #b7c4d8;
+  --margin-red: #c45c5c;
+  --kraft: #c4a574;
+  --kraft-deep: #a88455;
+  --news: #e8dfc8;
+
+  min-height: 100vh;
+  background: #5a4a3a;
+  padding: 0;
+  color: var(--ink);
+  font-family: var(--font-notes-body), Georgia, serif;
+}
+
+/* Full-page paper sheet */
+.paper-sheet {
+  position: relative;
+  width: 100%;
+  max-width: 820px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: var(--lined);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.08),
+    0 20px 60px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+/* —— Kraft torn bands —— */
+.kraft {
+  position: relative;
+  z-index: 5;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.12), transparent 50%),
+    linear-gradient(180deg, #d4b896 0%, var(--kraft) 45%, var(--kraft-deep) 100%);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+}
+
+.kraft--top {
+  min-height: 8.5rem;
+  padding: 1.1rem 1.25rem 2.4rem;
+  /* torn bottom edge */
+  clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    100% 78%,
+    97% 82%,
+    94% 76%,
+    90% 84%,
+    86% 78%,
+    82% 86%,
+    78% 80%,
+    74% 88%,
+    70% 79%,
+    66% 87%,
+    62% 81%,
+    58% 89%,
+    54% 80%,
+    50% 86%,
+    46% 78%,
+    42% 88%,
+    38% 80%,
+    34% 87%,
+    30% 79%,
+    26% 86%,
+    22% 78%,
+    18% 85%,
+    14% 77%,
+    10% 84%,
+    6% 76%,
+    3% 82%,
+    0% 78%
+  );
+}
+
+.kraft--bottom {
+  min-height: 10.5rem;
+  padding: 2.4rem 1.25rem 1.5rem;
+  margin-top: -0.5rem;
+  clip-path: polygon(
+    0% 22%,
+    3% 18%,
+    6% 24%,
+    10% 16%,
+    14% 23%,
+    18% 15%,
+    22% 22%,
+    26% 14%,
+    30% 21%,
+    34% 13%,
+    38% 20%,
+    42% 12%,
+    46% 22%,
+    50% 14%,
+    54% 20%,
+    58% 11%,
+    62% 19%,
+    66% 13%,
+    70% 21%,
+    74% 12%,
+    78% 20%,
+    82% 14%,
+    86% 22%,
+    90% 16%,
+    94% 24%,
+    97% 18%,
+    100% 22%,
+    100% 100%,
+    0% 100%
+  );
+}
+
+.kraft-news {
+  position: absolute;
+  width: 7rem;
+  height: 3.2rem;
+  background:
+    repeating-linear-gradient(
+      transparent,
+      transparent 7px,
+      rgba(40, 30, 20, 0.18) 7px,
+      rgba(40, 30, 20, 0.18) 8px
+    ),
+    var(--news);
+  font-size: 0.35rem;
+  line-height: 1.3;
+  color: rgba(40, 30, 20, 0.45);
+  padding: 0.35rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  z-index: 0;
+  overflow: hidden;
+}
+
+.kraft-news::after {
+  content: 'the craft of shipping software · notes from yangon · flutter riverpod fcm next.js · build · ship · learn · repeat · portfolio scraps ·';
+  display: block;
+}
+
+.kraft-news--left {
+  top: 0.6rem;
+  left: 0.5rem;
+  transform: rotate(-4deg);
+}
+
+.kraft-news--right {
+  top: 1.2rem;
+  right: 5.5rem;
+  transform: rotate(3deg);
+  width: 5.5rem;
+}
+
+.deco-flourish {
+  position: absolute;
+  top: 0.4rem;
+  left: 0.8rem;
+  width: 4.5rem;
+  opacity: 0.85;
+  z-index: 2;
+}
+
+.deco-film {
+  position: absolute;
+  top: -0.4rem;
+  left: 5.2rem;
+  width: 2.4rem;
+  height: 8.5rem;
+  transform: rotate(-18deg);
+  z-index: 3;
+  filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.35));
+  pointer-events: none;
+  overflow: visible;
+}
+
+.deco-polaroid {
+  position: absolute;
+  top: 0.35rem;
+  left: 8.2rem;
+  width: 3.6rem;
+  height: 4rem;
+  transform: rotate(8deg);
+  z-index: 4;
+  filter: drop-shadow(1px 2px 4px rgba(0, 0, 0, 0.25));
+  pointer-events: none;
+  overflow: visible;
+}
+
+.deco-scrap-top {
+  position: absolute;
+  top: 2.4rem;
+  left: 11.5rem;
+  width: 6.5rem;
+  height: 3.25rem;
+  transform: rotate(-7deg);
+  z-index: 1;
+  opacity: 0.92;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.deco-postmark {
+  position: absolute;
+  top: 2.6rem;
+  left: 7.4rem;
+  width: 3.4rem;
+  height: 3.4rem;
+  border: 2px solid rgba(60, 40, 20, 0.35);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-notes-display), Georgia, serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.18em;
+  color: rgba(60, 40, 20, 0.4);
+  transform: rotate(-18deg);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.deco-sparkle {
+  position: absolute;
+  z-index: 6;
+  pointer-events: none;
+  opacity: 0.8;
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.6));
+}
+
+.deco-sparkle--1 {
+  top: 0.5rem;
+  left: 12.8rem;
+  width: 0.9rem;
+}
+
+.deco-sparkle--2 {
+  top: 22%;
+  right: 18%;
+  width: 0.85rem;
+}
+
+.deco-sparkle--3 {
+  bottom: 18%;
+  left: 22%;
+  width: 0.7rem;
+}
+
+.deco-sparkle--4 {
+  right: 5.5rem;
+  bottom: 1.2rem;
+  width: 0.85rem;
+}
+
+.deco-ornate-book {
+  position: absolute;
+  top: 0.15rem;
+  right: 6.2rem;
+  width: 3.6rem;
+  height: auto;
+  transform: rotate(12deg);
+  z-index: 4;
+  pointer-events: none;
+  filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.25));
+}
+
+.deco-man {
+  position: absolute;
+  top: 1.1rem;
+  left: 14.8rem;
+  width: 2.1rem;
+  height: 2.6rem;
+  transform: rotate(-6deg);
+  z-index: 4;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.deco-parchment-top {
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  width: 8.5rem;
+  height: auto;
+  transform: rotate(4deg);
+  z-index: 1;
+  opacity: 0.9;
+  pointer-events: none;
+  filter: drop-shadow(1px 2px 4px rgba(0, 0, 0, 0.12));
+}
+
+.deco-compass {
+  position: absolute;
+  bottom: 8%;
+  left: 3%;
+  width: 5.2rem;
+  height: auto;
+  transform: rotate(-8deg);
+  z-index: 2;
+  pointer-events: none;
+  filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.15));
+}
+
+.deco-pen {
+  position: absolute;
+  top: 36%;
+  right: 5%;
+  width: 1.1rem;
+  height: 3.4rem;
+  transform: rotate(28deg);
+  z-index: 2;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.deco-stacked-books {
+  position: absolute;
+  left: -0.2rem;
+  bottom: -0.35rem;
+  width: 5.4rem;
+  height: auto;
+  z-index: 1;
+  pointer-events: none;
+  filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.22));
+}
+
+.deco-parchment-bottom {
+  position: absolute;
+  right: 1rem;
+  top: 1.4rem;
+  width: 7.5rem;
+  height: auto;
+  transform: rotate(-3deg);
+  z-index: 1;
+  opacity: 0.92;
+  pointer-events: none;
+}
+
+.deco-book-scrap {
+  position: absolute;
+  top: 6%;
+  right: 8%;
+  width: 6.5rem;
+  height: 3rem;
+  transform: rotate(6deg);
+  z-index: 1;
+  opacity: 0.85;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.deco-scrap-mid {
+  position: absolute;
+  bottom: 12%;
+  right: 4%;
+  width: 5.8rem;
+  height: 2.9rem;
+  transform: rotate(-9deg);
+  z-index: 1;
+  opacity: 0.8;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.deco-sunflower {
+  display: none;
+}
+
+.deco-scrap-bottom {
+  position: absolute;
+  right: 6.5rem;
+  top: 1.8rem;
+  width: 5.5rem;
+  height: 2.5rem;
+  transform: rotate(4deg);
+  z-index: 1;
+  opacity: 0.85;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.deco-stamp {
+  position: absolute;
+  top: 0.85rem;
+  right: 1rem;
+  width: 4.2rem;
+  height: 4.2rem;
+  border: 2px dashed rgba(60, 40, 20, 0.55);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 4px,
+      rgba(80, 50, 20, 0.08) 4px,
+      rgba(80, 50, 20, 0.08) 5px
+    ),
+    rgba(210, 180, 130, 0.5);
+  transform: rotate(8deg);
+  z-index: 2;
+}
+
+.deco-stamp span {
+  font-family: var(--font-notes-display), Georgia, serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #3b2a18;
+}
+
+.deco-stamp small {
+  font-family: var(--font-notes-hand), cursive;
+  font-size: 0.7rem;
+  color: #5c3d24;
+  margin-top: 0.15rem;
+}
+
+/* —— Lined notebook paper —— */
+.lined-paper {
+  position: relative;
+  z-index: 2;
+  min-height: 920px;
+  padding: 1.25rem 1.25rem 2rem;
+  margin-top: -1.4rem;
+  background:
+    linear-gradient(90deg, transparent 2.75rem, var(--margin-red) 2.75rem, var(--margin-red) calc(2.75rem + 1.5px), transparent calc(2.75rem + 1.5px)),
+    repeating-linear-gradient(
+      transparent,
+      transparent 1.7rem,
+      var(--line) 1.7rem,
+      var(--line) calc(1.7rem + 1px)
+    ),
+    radial-gradient(ellipse at 70% 20%, rgba(255, 240, 200, 0.35), transparent 50%),
+    radial-gradient(ellipse at 20% 80%, rgba(180, 160, 130, 0.12), transparent 45%),
+    var(--lined);
+  /* subtle paper wrinkle */
+  box-shadow: inset 0 0 80px rgba(140, 110, 70, 0.08);
+}
+
+.paper-crease {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  background:
+    linear-gradient(115deg, transparent 40%, rgba(0, 0, 0, 0.06) 48%, transparent 52%),
+    linear-gradient(70deg, transparent 55%, rgba(255, 255, 255, 0.25) 60%, transparent 65%);
+  mix-blend-mode: multiply;
+}
+
+.margin-line {
+  display: none;
+}
+
+.paper-back {
+  position: relative;
+  z-index: 4;
+  display: inline-block;
+  margin: 0.25rem 0 0 2.9rem;
+  font-family: var(--font-notes-hand), cursive;
+  font-size: 1.2rem;
+  color: var(--ink-blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.paper-back:hover {
+  color: #0f2744;
+}
+
+.paper-center-title {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  padding: 3.5rem 1rem 2rem;
+  margin-left: 1.5rem;
+}
+
+.paper-center-eyebrow {
+  font-family: var(--font-notes-display), Georgia, serif;
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--ink-brown);
+  margin-bottom: 0.15rem;
+}
+
+.paper-center-title h1 {
+  font-family: var(--font-notes-display), Georgia, serif;
+  font-size: clamp(2.8rem, 10vw, 4.4rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--ink);
+  margin: 0;
+}
+
+.paper-center-sub {
+  margin-top: 0.35rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #555;
+}
+
+.paper-center-name {
+  margin-top: 0.65rem;
+  font-family: var(--font-notes-display), Georgia, serif;
+  font-size: 1.05rem;
+  color: var(--ink-brown);
+}
+
+.deco-waves {
+  position: absolute;
+  top: 38%;
+  left: 8%;
+  width: 84%;
+  height: 4rem;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.deco-daisy,
+.deco-lotus {
+  display: none;
+}
+
+.deco-scribble {
+  position: absolute;
+  top: 11%;
+  left: 10%;
+  width: 3.5rem;
+  opacity: 0.7;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Random margin scribbles */
+.margin-scribble {
+  position: absolute;
+  z-index: 2;
+  margin: 0;
+  font-family: var(--font-notes-hand), cursive;
+  font-size: 1.05rem;
+  color: rgba(30, 58, 95, 0.55);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Handwritten notes scattered on the page */
+.written-note {
+  position: absolute;
+  z-index: 3;
+  margin: 0;
+  padding: 0 0.15rem;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.written-note-tag {
+  display: block;
+  font-family: var(--font-notes-hand), cursive;
+  font-size: 0.95rem;
+  opacity: 0.75;
+  margin-bottom: 0.15rem;
+}
+
+.written-note h2 {
+  font-family: var(--font-notes-hand), cursive;
+  font-weight: 600;
+  font-size: 1.35rem;
+  line-height: 1.15;
+  margin: 0 0 0.25rem;
+}
+
+.written-note p {
+  font-family: var(--font-notes-hand), cursive;
+  font-size: 1.12rem;
+  line-height: 1.35;
+  margin: 0;
+  opacity: 0.92;
+}
+
+.written-note--sm h2 {
+  font-size: 1.15rem;
+}
+
+.written-note--sm p {
+  font-size: 1rem;
+}
+
+.written-note--lg h2 {
+  font-size: 1.55rem;
+}
+
+.written-note--blue,
+.written-note--blue h2,
+.written-note--blue p,
+.written-note--blue .written-note-tag {
+  color: var(--ink-blue);
+}
+
+.written-note--brown,
+.written-note--brown h2,
+.written-note--brown p,
+.written-note--brown .written-note-tag {
+  color: var(--ink-brown);
+}
+
+.written-note--black,
+.written-note--black h2,
+.written-note--black p,
+.written-note--black .written-note-tag {
+  color: var(--ink);
+}
+
+.written-notes-mobile {
+  display: none;
+}
+
+/* Bottom kraft fields */
+.kraft-fields {
+  position: relative;
+  z-index: 4;
+  font-family: var(--font-notes-hand), cursive;
+  font-size: 1.25rem;
+  color: #2a1f14;
+  line-height: 1.55;
+  max-width: 22rem;
+  margin-left: 6.5rem;
+}
+
+.kraft-fields span {
+  opacity: 0.7;
+}
+
+.deco-butterfly {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 3.2rem;
+  width: 3.5rem;
+  opacity: 0.85;
+}
+
+.kraft-projects-link {
+  position: relative;
+  z-index: 5;
+  display: inline-block;
+  margin-top: 0.85rem;
+  font-family: var(--font-notes-hand), cursive;
+  font-size: 1.2rem;
+  color: #2a1f14;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.kraft-projects-link:hover {
+  color: #000;
+}
+
+/* —— Mobile: paper still full page, notes stack as handwriting —— */
+@media (max-width: 719px) {
+  .notes-page {
+    background: var(--lined);
+  }
+
+  .paper-sheet {
+    max-width: none;
+    box-shadow: none;
+  }
+
+  .lined-paper {
+    min-height: auto;
+    padding-bottom: 1rem;
+  }
+
+  .paper-center-title {
+    padding: 2rem 0.5rem 1.5rem;
+  }
+
+  .written-note,
+  .margin-scribble,
+  .deco-scribble,
+  .deco-waves,
+  .deco-film,
+  .deco-polaroid,
+  .deco-scrap-top,
+  .deco-scrap-mid,
+  .deco-book-scrap,
+  .deco-postmark,
+  .deco-parchment-top,
+  .deco-compass,
+  .deco-pen,
+  .deco-ornate-book,
+  .deco-man,
+  .deco-parchment-bottom {
+    display: none;
+  }
+
+  .deco-stacked-books {
+    width: 4.8rem;
+    left: -0.1rem;
+    bottom: -0.2rem;
+  }
+
+  .kraft-fields {
+    margin-left: 4.2rem;
+    font-size: 1.1rem;
+  }
+
+  .written-notes-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    padding: 0.5rem 0.5rem 1.5rem 2.9rem;
+  }
+
+  .written-notes-mobile .written-note {
+    display: block;
+    position: relative;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    max-width: none;
+  }
+
+  .kraft-news--right {
+    display: none;
+  }
+}
+
+@media (min-width: 720px) {
+  .notes-page {
+    padding: 1.5rem 1rem 2rem;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(255, 220, 160, 0.15), transparent 50%),
+      #4a3c30;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .written-note,
+  .paper-back,
+  .kraft-projects-link {
+    transition: none;
+  }
+}

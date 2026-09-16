@@ -38,7 +38,7 @@ export const projects: Project[] = [
     description:
       "Edunburgh Elevator Service is the official Flutter app for Edunburgh Elevator Myanmar customers. Residents and building managers can sign in securely, submit maintenance requests with photos, follow service orders from submission to completion, view engineer replies, rate completed work, manage invoices, and upload payment proof — all from one place. The app supports English and Myanmar, light and dark mode, and push notifications via Firebase Cloud Messaging for request updates, engineer replies, and payment verification.",
     category: "Business · Mobile App",
-    tech: ["Flutter", "Dart", "FCM", "REST API", "Firebase"],
+    tech: ["Flutter", "Dart", "REST API", "Firebase"],
     githubUrl: "",
     storeLinks: {
       ios: "https://apps.apple.com/app/id6777947287",
@@ -84,7 +84,7 @@ export const projects: Project[] = [
     liveUrl: "https://anime-updates.kirragami.com/download",
     liveLabel: "Download",
     role: "Mobile Developer",
-    timeline: "12 weeks",
+    timeline: "3 months",
     highlights: [
       "Developed a cross-platform Flutter app with smooth animations and responsive design.",
       "Managed app state efficiently using Riverpod for scalable and maintainable code.",
@@ -119,7 +119,7 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/ademon118/anime-updates",
     liveUrl: "",
     role: "Backend Developer",
-    timeline: "12 weeks",
+    timeline: "3 months",
     highlights: [
       "Implemented Spring Boot backend with REST APIs for fetching and managing anime data.",
       "Scheduled periodic updates using Spring Scheduler to keep anime information current.",
@@ -170,7 +170,7 @@ export const projects: Project[] = [
     category: "Education · Web App",
     tech: ["HTML", "CSS", "JavaScript"],
     githubUrl: "https://github.com/ademon118/Student-Listener",
-    liveUrl: "https://student-listener.vercel.app/",
+    liveUrl: "https://studentlistener.aungkokonaing.com/",
     role: "Front End Developer",
     timeline: "3 weeks",
     highlights: [

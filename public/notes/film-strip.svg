@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 200" fill="none">
+  <rect width="56" height="200" rx="2" fill="#1a1a1a"/>
+  <g fill="#2e2e2e">
+    <rect x="2" y="4" width="6" height="10" rx="1"/>
+    <rect x="2" y="20" width="6" height="10" rx="1"/>
+    <rect x="2" y="36" width="6" height="10" rx="1"/>
+    <rect x="2" y="52" width="6" height="10" rx="1"/>
+    <rect x="2" y="68" width="6" height="10" rx="1"/>
+    <rect x="2" y="84" width="6" height="10" rx="1"/>
+    <rect x="2" y="100" width="6" height="10" rx="1"/>
+    <rect x="2" y="116" width="6" height="10" rx="1"/>
+    <rect x="2" y="132" width="6" height="10" rx="1"/>
+    <rect x="2" y="148" width="6" height="10" rx="1"/>
+    <rect x="2" y="164" width="6" height="10" rx="1"/>
+    <rect x="2" y="180" width="6" height="10" rx="1"/>
+    <rect x="48" y="4" width="6" height="10" rx="1"/>
+    <rect x="48" y="20" width="6" height="10" rx="1"/>
+    <rect x="48" y="36" width="6" height="10" rx="1"/>
+    <rect x="48" y="52" width="6" height="10" rx="1"/>
+    <rect x="48" y="68" width="6" height="10" rx="1"/>
+    <rect x="48" y="84" width="6" height="10" rx="1"/>
+    <rect x="48" y="100" width="6" height="10" rx="1"/>
+    <rect x="48" y="116" width="6" height="10" rx="1"/>
+    <rect x="48" y="132" width="6" height="10" rx="1"/>
+    <rect x="48" y="148" width="6" height="10" rx="1"/>
+    <rect x="48" y="164" width="6" height="10" rx="1"/>
+    <rect x="48" y="180" width="6" height="10" rx="1"/>
+  </g>
+  <rect x="12" y="8" width="32" height="28" fill="#6b5a4a"/>
+  <rect x="12" y="44" width="32" height="28" fill="#4a5a6b"/>
+  <rect x="12" y="80" width="32" height="28" fill="#5a4a3a"/>
+  <rect x="12" y="116" width="32" height="28" fill="#3a4a3a"/>
+  <rect x="12" y="152" width="32" height="28" fill="#4a3a4a"/>
+  <text x="28" y="26" text-anchor="middle" fill="#d4c4b0" font-size="5" font-family="serif">01</text>
+  <text x="28" y="62" text-anchor="middle" fill="#d4c4b0" font-size="5" font-family="serif">02</text>
+  <text x="28" y="98" text-anchor="middle" fill="#d4c4b0" font-size="5" font-family="serif">03</text>
+  <text x="28" y="134" text-anchor="middle" fill="#d4c4b0" font-size="5" font-family="serif">04</text>
+  <text x="28" y="170" text-anchor="middle" fill="#d4c4b0" font-size="5" font-family="serif">05</text>
+</svg>

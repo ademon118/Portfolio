@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 55" fill="none">
+  <path
+    d="M2 10 C20 2, 40 14, 58 6 C78 0, 95 12, 118 8 L116 42 C100 50, 80 38, 62 46 C42 52, 22 40, 4 48 Z"
+    fill="#e8dfc8"
+    stroke="#cfc3a8"
+    stroke-width="0.8"
+  />
+  <text x="12" y="22" fill="#5a4a35" font-size="6.5" font-family="Georgia, serif" opacity="0.55">
+    lorem from an old book page 
+  </text>
+  <text x="12" y="32" fill="#5a4a35" font-size="6.5" font-family="Georgia, serif" opacity="0.5">
+    craft of apps, notifications,
+  </text>
+  <text x="12" y="42" fill="#5a4a35" font-size="6.5" font-family="Georgia, serif" opacity="0.45">
+    and late-night commits.
+  </text>
+</svg>

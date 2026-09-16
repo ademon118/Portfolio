@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 100">
+  <defs>
+    <linearGradient id="polaroidPhoto" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#c4b49a"/>
+      <stop offset="100%" stop-color="#6a5a4a"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="78" height="88" fill="#f3efe6" stroke="#d8d0c0" stroke-width="1"/>
+  <rect x="10" y="10" width="66" height="58" fill="#8a7a68"/>
+  <rect x="10" y="10" width="66" height="58" fill="url(#polaroidPhoto)" opacity="0.55"/>
+  <text x="43" y="82" text-anchor="middle" fill="#5c4a38" font-size="8" font-family="Georgia, serif" font-style="italic">ship day</text>
+  <rect x="22" y="1" width="42" height="10" fill="#fff8dc" fill-opacity="0.55" stroke="#c8bea0" stroke-width="0.5" transform="rotate(-2 43 6)"/>
+</svg>

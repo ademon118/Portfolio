@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function SiteFooter() {
   return (
@@ -45,8 +46,32 @@ export default function SiteFooter() {
         </div>
 
         <div className="border-t border-white/10 mt-4 pt-4 text-center space-y-2">
-          <p className="text-gray-400">
-            Designed & Built by <span className="font-medium text-white">Aung Ko Ko Naing</span>
+          <p className="text-gray-400 flex flex-wrap items-center justify-center gap-x-2 gap-y-2">
+            <span>
+              Designed & Built by <span className="font-medium text-white">Aung Ko Ko Naing</span>
+            </span>
+            <span className="text-white/20 hidden sm:inline" aria-hidden>
+              ·
+            </span>
+            <Link
+              href="/notes"
+              className="group inline-flex items-center gap-1.5 rounded-full border border-amber-200/25 bg-gradient-to-br from-amber-100/15 to-amber-900/20 px-3 py-1 text-sm text-amber-100/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] transition-all duration-300 hover:border-amber-200/50 hover:from-amber-100/25 hover:to-amber-800/30 hover:text-amber-50 hover:-translate-y-0.5"
+            >
+              <svg
+                className="h-3.5 w-3.5 opacity-80 transition-transform duration-300 group-hover:rotate-[-8deg]"
+                viewBox="0 0 16 16"
+                fill="none"
+                aria-hidden
+              >
+                <rect x="3" y="2" width="9" height="12" rx="1.2" stroke="currentColor" strokeWidth="1.4" />
+                <path d="M5.5 5h4M5.5 7.5h4M5.5 10h2.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+                <path d="M11.5 3.5l1.5 1.2v8.3l-1.5-1.1V3.5z" fill="currentColor" opacity="0.35" />
+              </svg>
+              <span>Creative notes</span>
+              <span className="text-[10px] tracking-wide text-amber-200/70 transition-transform duration-300 group-hover:translate-x-0.5">
+                →
+              </span>
+            </Link>
           </p>
           <p className="text-gray-500 text-sm">
             © {new Date().getFullYear()} All rights reserved.
