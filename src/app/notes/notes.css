@@ -161,6 +161,63 @@
   z-index: 2;
 }
 
+/* Motion wrappers hold absolute placement; inner deco fills them */
+.deco-motion {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.deco-in-wrap {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  width: 100% !important;
+  height: auto !important;
+  transform: none !important;
+}
+
+.deco-film-wrap {
+  top: -0.4rem;
+  left: 5.2rem;
+  width: 2.4rem;
+  z-index: 3;
+  filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.35));
+}
+
+.deco-polaroid-wrap {
+  top: 0.35rem;
+  left: 8.2rem;
+  width: 3.6rem;
+  z-index: 4;
+  filter: drop-shadow(1px 2px 4px rgba(0, 0, 0, 0.25));
+}
+
+.deco-parchment-top-wrap {
+  top: 3%;
+  right: 3%;
+  width: 9rem;
+  z-index: 1;
+  filter: drop-shadow(1px 2px 4px rgba(0, 0, 0, 0.12));
+}
+
+.deco-compass-wrap {
+  bottom: 18%;
+  left: 3%;
+  width: 5.5rem;
+  z-index: 2;
+  filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.15));
+}
+
+.deco-pen-wrap {
+  top: 58%;
+  right: 22%;
+  width: 1.15rem;
+  z-index: 2;
+}
+
 .deco-film {
   position: absolute;
   top: -0.4rem;
@@ -566,6 +623,9 @@
     2% 98%,
     0% 4%
   );
+  cursor: default;
+  transform-origin: center top;
+  will-change: transform;
 }
 
 .note-tape {
@@ -708,14 +768,19 @@
   .deco-scribble,
   .deco-waves,
   .deco-film,
+  .deco-film-wrap,
   .deco-polaroid,
+  .deco-polaroid-wrap,
   .deco-scrap-top,
   .deco-scrap-mid,
   .deco-book-scrap,
   .deco-postmark,
   .deco-parchment-top,
+  .deco-parchment-top-wrap,
   .deco-compass,
+  .deco-compass-wrap,
   .deco-pen,
+  .deco-pen-wrap,
   .deco-ornate-book,
   .deco-man,
   .deco-man-paper,
